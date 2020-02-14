@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
-import LogIn from '../log-in/LogIn'
-import Home from '../home/Home'
-import About from '../about/About'
-import Header from '../header/Header'
+import LogIn from '../misc/log-in/LogIn'
+import SignUp from '../misc/sign-up/SignUp'
+import Home from '../misc/home/Home'
+import About from '../misc/about/About'
+import Header from '../misc/header/Header'
 import {
   Switch,
   Route,
@@ -28,6 +29,9 @@ export default function App() {
         </Route> */}
         <Route path="/log-in">
           <LogIn />
+        </Route>
+        <Route path="/sign-up">
+          <SignUp />
         </Route>
 
         {/* If none of the previous routes render anything,

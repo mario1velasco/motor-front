@@ -1,8 +1,9 @@
 import React from 'react';
-import User from '../../shared/models/user';
+// import User from '../../shared/models/user';
 import { 
   Form, 
-  Button 
+  Button,
+  Nav
 } from 'react-bootstrap';
 
 class LogIn extends React.Component {
@@ -19,43 +20,19 @@ class LogIn extends React.Component {
 
   // CALLBACKS
   componentDidMount() {
-    // fetch('http://localhost:8000/api/')
-    // // fetch('http://jsonplaceholder.typicode.com/users')
-    // .then((response) => {
-    //   return response.json()
-    // })
-    // .then((empleados) => {
-    //   debugger
-    //   this.setState({ empleados: empleados })
-    // })
-    // .catch(console.log)
   }
 
   // METODOS DE INSTANCIA
-  parserUser() {
-    let user = {
-      email: this.form && this.form.elements.formEmail.value,
-      password: this.form && this.form.elements.formPassword.value,
-      checkme: this.form && this.form.elements.formCheckme.value,
-    }
-    debugger
-    this.setState({
-      userEmail: this.form && this.form.elements.formEmail.value,
-      userPassword: this.form && this.form.elements.formPassword.value,
-      userCheckme: this.form && this.form.elements.formCheckme.value,
-    });
-    return user;
-  }
 
 // EVENTOS
   onSubmitForm(event) {
     event.preventDefault();
     const data = { 
       email:this.state.userEmail, 
-      name:this.state.userPassword, 
+      password:this.state.userPassword, 
       checkme:this.state.userCheckme 
     }
-    fetch('http://localhost:8000/session', {
+    fetch('http://localhost:8000/users', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data),
@@ -66,23 +43,6 @@ class LogIn extends React.Component {
       this.setState({ empleados: empleados })
     })
     .catch(console.log)
-
-    // const data = { 
-    //   email:this.state.userEmail, 
-    //   name:this.state.userPassword, 
-    //   email:this.state.userCheckme 
-    // }
-    // fetch('http://localhost:8000/api/', {
-    //   method: 'POST',
-    //   body: JSON.stringify(data),
-    //   headers:{ 'Content-Type': 'application/json' }
-    // }).then((response) => {
-    //   return response.json()
-    // })
-    // .then((empleados) => {
-    //   this.setState({ empleados: empleados })
-    // })
-    // .catch(console.log)
   }
 
   onChangeEmail(field) {
@@ -97,7 +57,19 @@ class LogIn extends React.Component {
     this.setState({userCheckme: field.target.value});
   }
 
+
   // RENDER
+  // Enlace para ir a signUp
+  renderSignUp() {
+    return (
+      <Nav>
+        <Nav.Item>
+          <Nav.Link href="/sign-up">Ir a registrarse</Nav.Link>
+        </Nav.Item>
+      </Nav>
+    );
+  }
+
   render(){
     return (
       <Form
@@ -134,6 +106,7 @@ class LogIn extends React.Component {
         <Button variant="primary" type="submit">
           Submit
         </Button>
+        {this.renderSignUp()}
       </Form>
     );
   }
