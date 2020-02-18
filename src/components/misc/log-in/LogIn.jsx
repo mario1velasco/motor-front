@@ -1,9 +1,13 @@
 import React from 'react';
-// import User from '../../shared/models/user';
-import { 
-  Form, 
+import { authenticationService } from '../../../shared/services/authentication-service';
+import {
+  withRouter
+} from "react-router-dom";
+import {
+  Form,
   Button,
-  Nav
+  Nav,
+  Alert,
 } from 'react-bootstrap';
 
 class LogIn extends React.Component {
@@ -15,6 +19,7 @@ class LogIn extends React.Component {
       userEmail: null,
       userPassword: null,
       userCheckme: null,
+      apiError: null,
     };
   }
 
@@ -24,25 +29,23 @@ class LogIn extends React.Component {
 
   // METODOS DE INSTANCIA
 
-// EVENTOS
+  // EVENTOS
   onSubmitForm(event) {
     event.preventDefault();
-    const data = { 
-      email:this.state.userEmail, 
-      password:this.state.userPassword, 
-      checkme:this.state.userCheckme 
+    const data = {
+      email:this.state.userEmail,
+      password:this.state.userPassword,
+      checkme:this.state.userCheckme
     }
-    fetch('http://localhost:8000/users', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data),
-    }).then((response) => {
-      return response.json()
-    })
-    .then((empleados) => {
-      this.setState({ empleados: empleados })
-    })
-    .catch(console.log)
+    authenticationService.logIn(data)
+      .then(
+        user => {
+          this.props.history.push("/home");
+        },
+        error => {
+          this.setState({apiError: error.message ? error.message : error })
+        }
+      );
   }
 
   onChangeEmail(field) {
@@ -70,18 +73,29 @@ class LogIn extends React.Component {
     );
   }
 
+  renderApiError() {
+    if (this.state.apiError) {
+      return (
+        <Alert key="alert" variant='danger'>
+          {this.state.apiError}
+        </Alert>
+      );
+    }
+  }
+
   render(){
     return (
       <Form
         ref={(form) => { this.form = form }}
         onSubmit={this.onSubmitForm.bind(this)}
       >
+        {this.renderApiError()}
         <Form.Group controlId="formEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control 
-            type="email" 
-            placeholder="Enter email" 
-            onChange={(field) => this.onChangeEmail(field)} 
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            onChange={(field) => this.onChangeEmail(field)}
           />
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
@@ -90,17 +104,17 @@ class LogIn extends React.Component {
 
         <Form.Group controlId="formPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control 
-            type="password" 
-            placeholder="Password" 
-            onChange={(field) => this.onChangePassword(field)}  
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            onChange={(field) => this.onChangePassword(field)}
           />
         </Form.Group>
         <Form.Group controlId="formCheckme">
-          <Form.Check 
-            type="checkbox" 
-            label="Check me out" 
-            onChange={(field) => this.onChangeCheckme(field)} 
+          <Form.Check
+            type="checkbox"
+            label="Check me out"
+            onChange={(field) => this.onChangeCheckme(field)}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
@@ -112,4 +126,4 @@ class LogIn extends React.Component {
   }
 }
 
-export default LogIn;
+export default withRouter(LogIn);

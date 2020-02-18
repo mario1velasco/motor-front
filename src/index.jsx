@@ -1,14 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'bootstrap/dist/css/bootstrap.css';
-// import '../node_modules/bootstrap/dist/css/bootstrap.css';
-// import './components/App/index.css';
 import App from './components/App';
+import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
-import {
-  BrowserRouter as Router,
-} from "react-router-dom";
 
 ReactDOM.render(
   <div>
@@ -16,11 +11,10 @@ ReactDOM.render(
       src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"
       crossOrigin="true"
     />
-
     <script>var Alert = ReactBootstrap.Alert;</script>
-    <Router>
+    <BrowserRouter>
       <App />
-    </Router>
+    </BrowserRouter>
   </div>,
   document.getElementById("root")
 );

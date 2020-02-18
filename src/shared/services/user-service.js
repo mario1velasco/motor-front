@@ -1,20 +1,29 @@
-// import Service from './service';
+// import config from 'config';
+import { handleResponse } from '../helpers/handle-response';
+// import { authHeader } from '../helpers/auth-header';
+import { authenticationService } from './authentication-service'
 
-class UserService {
+export const userService = {
+	signUp
+};
 
-  static createUser(object, headers) {
-    fetch('http://localhost:8000/users', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(object),
-    })
-    .then((response) => {
-      return response.json()
-    })
-    .catch(console.log)
-  }
- 
-
+function signUp(data) {
+  const requestOptions = {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(data)
+	};
+	debugger
+	return fetch(`${process.env.API_URL}/users`, requestOptions)
+  // return fetch(`http://localhost:4000/users`, requestOptions)
+  .then(handleResponse)
+  .then(user => {
+		authenticationService.setUser(user)
+		return user;
+  });
 }
 
-export default UserService;
+// function getAll() {
+//     const requestOptions = { method: 'GET', headers: authHeader() };
+//     return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
+// }

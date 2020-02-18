@@ -1,8 +1,11 @@
 import React from 'react';
 // import User from '../../shared/models/user';
-// import UserService from '../../../shared/services/user-service';
-import { 
-  Form, 
+import { userService } from '../../../shared/services/user-service';
+import {
+  withRouter
+} from "react-router-dom";
+import {
+  Form,
   Button,
   Nav,
   Alert
@@ -53,30 +56,23 @@ class SignUp extends React.Component {
   onSubmitForm(event) {
     event.preventDefault();
     if(this.checkPassword()) {
-      const data = { 
-        email:this.state.userEmail, 
-        password:this.state.userPassword, 
-        checkme:this.state.userCheckme 
+      const data = {
+        email:this.state.userEmail,
+        password:this.state.userPassword,
+        checkme:this.state.userCheckme
       }
-      fetch('http://localhost:8000/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+      userService.signUp(data)
+      .then(
+        user => {
+          debugger
+          this.props.history.push("/home");
+          // const { from } = this.props.location.state || { from: { pathname: "/" } };
+          // this.props.history.push(from);
         },
-        body: JSON.stringify(data),
-      })
-      .then((response) => {
-        response.json().then(data => {
-          if (data) {
-            debugger
-            this.setState({apiError: data.message})
-            console.log(data);
-          } else {
-            console.log("nO DATA");
-          }
-        })
-      })
+        error => {
+          this.setState({apiError: error.message})
+        }
+      );
     }
   }
 
@@ -103,7 +99,7 @@ class SignUp extends React.Component {
   }
 
   // RENDER
-  // Enlace para ir a login
+  // Enlace para ir a signUp
   renderLogIn() {
     return (
       <Nav>
@@ -117,7 +113,7 @@ class SignUp extends React.Component {
   renderPasswordError() {
     const { passwordError } = this.state;
     if (passwordError) {
-      return <div>{passwordError}</div>;
+      return <div className='text-error'>{passwordError}</div>;
     }
     return null;
   }
@@ -141,10 +137,10 @@ class SignUp extends React.Component {
         {this.renderApiError()}
         <Form.Group controlId="formEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control 
-            type="email" 
-            placeholder="Enter email" 
-            onChange={(field) => this.onChangeEmail(field)} 
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            onChange={(field) => this.onChangeEmail(field)}
           />
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
@@ -154,10 +150,10 @@ class SignUp extends React.Component {
         <Form.Group controlId="formPassword">
           <Form.Label>Password</Form.Label>
           <div>
-            <Form.Control 
-              type="password" 
-              placeholder="Password" 
-              onChange={(field) => this.onChangePassword(field)}  
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={(field) => this.onChangePassword(field)}
             />
             {this.renderPasswordError()}
           </div>
@@ -165,19 +161,19 @@ class SignUp extends React.Component {
         <Form.Group controlId="formConfirmationPassword">
           <Form.Label>Confirmation Password</Form.Label>
           <div>
-            <Form.Control 
-              type="password" 
-              placeholder="ConfirmationPassword" 
-              onChange={(field) => this.onChangeConfirmationPassword(field)}  
+            <Form.Control
+              type="password"
+              placeholder="ConfirmationPassword"
+              onChange={(field) => this.onChangeConfirmationPassword(field)}
             />
             {this.renderPasswordError()}
           </div>
         </Form.Group>
         <Form.Group controlId="formCheckme">
-          <Form.Check 
-            type="checkbox" 
-            label="Check me out" 
-            onChange={(field) => this.onChangeCheckme(field)} 
+          <Form.Check
+            type="checkbox"
+            label="Check me out"
+            onChange={(field) => this.onChangeCheckme(field)}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
@@ -189,4 +185,4 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+export default withRouter(SignUp);
