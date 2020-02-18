@@ -7,11 +7,6 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <div>
-    <script
-      src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"
-      crossOrigin="true"
-    />
-    <script>var Alert = ReactBootstrap.Alert;</script>
     <BrowserRouter>
       <App />
     </BrowserRouter>
