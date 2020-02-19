@@ -1,6 +1,6 @@
 import React from 'react';
 // import User from '../../shared/models/user';
-import { userService } from '../../../shared/services/user-service';
+import { userService } from '@services/user-service';
 import {
   withRouter
 } from "react-router-dom";
@@ -11,6 +11,13 @@ import {
   Alert
 } from 'react-bootstrap';
 
+// CONSTANTES
+const HOME = '/home'
+const LOGIN = '/log-in'
+const EMPTY_ERROR = 'Password cannot be empty.'
+const LENGTH_ERROR = 'Please enter more characters.'
+const PASSWORD_ERROR = 'Passwords have to be the same'
+
 class SignUp extends React.Component {
 
   // CONSTRUCTOR
@@ -20,7 +27,6 @@ class SignUp extends React.Component {
       userEmail: null,
       userPassword: null,
       userConfirmationPassword: null,
-      userCheckme: null,
       passwordError: null,
       apiError: null,
     };
@@ -35,17 +41,17 @@ class SignUp extends React.Component {
     const { userPassword } = this.state;
     if (!userPassword) {
       this.setState({
-        passwordError: 'Password cannot be empty.'
+        passwordError: EMPTY_ERROR
       })
       return false;
     } else if (userPassword.length < 3) {
       this.setState({
-        passwordError: 'Please enter more characters.'
+        passwordError: LENGTH_ERROR
       })
       return false;
     } else if(this.state.userPassword !== this.state.userConfirmationPassword) {
       this.setState({
-        passwordError: 'Passwords have to be the same'
+        passwordError: PASSWORD_ERROR
       })
       return false;
     }
@@ -59,18 +65,14 @@ class SignUp extends React.Component {
       const data = {
         email:this.state.userEmail,
         password:this.state.userPassword,
-        checkme:this.state.userCheckme
       }
       userService.signUp(data)
       .then(
         user => {
-          debugger
-          this.props.history.push("/home");
-          // const { from } = this.props.location.state || { from: { pathname: "/" } };
-          // this.props.history.push(from);
+          this.props.history.push(HOME);
         },
         error => {
-          this.setState({apiError: error.message})
+          this.setState({apiError: error.message ? error.message : error })
         }
       );
     }
@@ -94,17 +96,15 @@ class SignUp extends React.Component {
     });
   }
 
-  onChangeCheckme(field) {
-    this.setState({userCheckme: field.target.value});
-  }
-
   // RENDER
   // Enlace para ir a signUp
   renderLogIn() {
     return (
       <Nav>
         <Nav.Item>
-          <Nav.Link href="/log-in">Ir a logearse</Nav.Link>
+          <Nav.Link href={LOGIN}>
+            ¿Ya tienes cuenta? <strong>Ir a inicio de sesión.</strong>
+          </Nav.Link>
         </Nav.Item>
       </Nav>
     );
@@ -136,48 +136,41 @@ class SignUp extends React.Component {
       >
         {this.renderApiError()}
         <Form.Group controlId="formEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>Dirección email</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder="Introduzca email"
             onChange={(field) => this.onChangeEmail(field)}
           />
           <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
+            Nunca compartimos tu email con nadie.
           </Form.Text>
         </Form.Group>
 
         <Form.Group controlId="formPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Contraseña</Form.Label>
           <div>
             <Form.Control
               type="password"
-              placeholder="Password"
+              placeholder="Contraseña"
               onChange={(field) => this.onChangePassword(field)}
             />
             {this.renderPasswordError()}
           </div>
         </Form.Group>
         <Form.Group controlId="formConfirmationPassword">
-          <Form.Label>Confirmation Password</Form.Label>
+          <Form.Label>Confirmar contraseña</Form.Label>
           <div>
             <Form.Control
               type="password"
-              placeholder="ConfirmationPassword"
+              placeholder="Introduce la misma contraseña"
               onChange={(field) => this.onChangeConfirmationPassword(field)}
             />
             {this.renderPasswordError()}
           </div>
         </Form.Group>
-        <Form.Group controlId="formCheckme">
-          <Form.Check
-            type="checkbox"
-            label="Check me out"
-            onChange={(field) => this.onChangeCheckme(field)}
-          />
-        </Form.Group>
         <Button variant="primary" type="submit">
-          Submit
+          Registrarse
         </Button>
         {this.renderLogIn()}
       </Form>

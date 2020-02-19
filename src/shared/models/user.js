@@ -3,7 +3,6 @@ class User {
     this.id = id;
     this.email = email;
     this.password = password;
-    this.checkme = checkme;
   }
 }
 export default User;

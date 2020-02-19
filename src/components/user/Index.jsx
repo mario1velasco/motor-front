@@ -14,7 +14,7 @@ import {
 // CONSTANTES
 const LOGIN = '/log-in'
 
-class Home extends React.Component {
+class Index extends React.Component {
 
   // CONSTRUCTOR
   constructor(props) {
@@ -87,4 +87,4 @@ class Home extends React.Component {
   }
 }
 
-export default withRouter(Home);
+export default withRouter(Index);

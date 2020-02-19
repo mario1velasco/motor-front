@@ -1,5 +1,5 @@
 import React from 'react';
-import { authenticationService } from '../../../shared/services/authentication-service';
+import { authenticationService } from '@services/authentication-service';
 import {
   withRouter
 } from "react-router-dom";
@@ -10,6 +10,10 @@ import {
   Alert,
 } from 'react-bootstrap';
 
+// CONSTANTES
+const HOME = '/home'
+const SIGNUP = '/sign-up'
+
 class LogIn extends React.Component {
 
   // CONSTRUCTOR
@@ -18,16 +22,9 @@ class LogIn extends React.Component {
     this.state = {
       userEmail: null,
       userPassword: null,
-      userCheckme: null,
       apiError: null,
     };
   }
-
-  // CALLBACKS
-  componentDidMount() {
-  }
-
-  // METODOS DE INSTANCIA
 
   // EVENTOS
   onSubmitForm(event) {
@@ -35,12 +32,11 @@ class LogIn extends React.Component {
     const data = {
       email:this.state.userEmail,
       password:this.state.userPassword,
-      checkme:this.state.userCheckme
     }
     authenticationService.logIn(data)
       .then(
         user => {
-          this.props.history.push("/home");
+          this.props.history.push(HOME);
         },
         error => {
           this.setState({apiError: error.message ? error.message : error })
@@ -56,18 +52,15 @@ class LogIn extends React.Component {
     this.setState({userPassword: field.target.value});
   }
 
-  onChangeCheckme(field) {
-    this.setState({userCheckme: field.target.value});
-  }
-
-
   // RENDER
   // Enlace para ir a signUp
   renderSignUp() {
     return (
       <Nav>
         <Nav.Item>
-          <Nav.Link href="/sign-up">Ir a registrarse</Nav.Link>
+          <Nav.Link href={SIGNUP}>
+            ¿Nuevo usuario? <strong>Ir a registrarse.</strong>
+          </Nav.Link>
         </Nav.Item>
       </Nav>
     );
@@ -83,7 +76,7 @@ class LogIn extends React.Component {
     }
   }
 
-  render(){
+  render() {
     return (
       <Form
         ref={(form) => { this.form = form }}
@@ -91,34 +84,27 @@ class LogIn extends React.Component {
       >
         {this.renderApiError()}
         <Form.Group controlId="formEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>Dirección email</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder="Introduzca email"
             onChange={(field) => this.onChangeEmail(field)}
           />
           <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
+            Nunca compartimos tu email con nadie.
           </Form.Text>
         </Form.Group>
 
         <Form.Group controlId="formPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Contraseña</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder="Introduzca contraseña"
             onChange={(field) => this.onChangePassword(field)}
           />
         </Form.Group>
-        <Form.Group controlId="formCheckme">
-          <Form.Check
-            type="checkbox"
-            label="Check me out"
-            onChange={(field) => this.onChangeCheckme(field)}
-          />
-        </Form.Group>
         <Button variant="primary" type="submit">
-          Submit
+          Enviar
         </Button>
         {this.renderSignUp()}
       </Form>

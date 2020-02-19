@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import LogIn from '../misc/log-in/LogIn'
-import SignUp from '../misc/sign-up/SignUp'
-import Home from '../misc/home/Home'
-import About from '../misc/about/About'
-import Header from '../misc/header/Header'
-import { authenticationService } from '../../shared/services/authentication-service';
-import { history } from '../../shared/helpers/history';
+import LogIn from '@components/misc/log-in/LogIn'
+import SignUp from '@components/misc/sign-up/SignUp'
+import Home from '@components/user/Index'
+// import UserShow from '@components/user/Index'
+import About from '@components/misc/about/About'
+import Header from '@components/misc/header/Header'
+import { history } from '@helpers/history';
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,23 +15,7 @@ import {
 } from "react-router-dom";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-        currentUser: null
-    };
-  }
-
-  componentDidMount() {
-      authenticationService.currentUser.subscribe(x => this.setState({ currentUser: x }));
-  }
-
-  logout() {
-      authenticationService.logout();
-      history.push('/login');
-  }
-
+  // RENDERS
   render() {
     // const { currentUser } = this.state;
     return (
@@ -45,19 +29,18 @@ class App extends React.Component {
               <Route path="/home">
                 <Home />
               </Route>
-
-              {/* Note how these two routes are ordered. The more specific
-                  path="/contact/:id" comes before path="/contact" so that
-                  route will render when viewing an individual contact */}
-              {/* <Route path="/contact/:id">
-                <Contact />
-              </Route> */}
               <Route path="/log-in">
                 <LogIn />
               </Route>
               <Route path="/sign-up">
                 <SignUp />
               </Route>
+              {/* Note how these two routes are ordered. The more specific
+                  path="/contact/:id" comes before path="/contact" so that
+                  route will render when viewing an individual contact */}
+              {/* <Route path="/contact/:id">
+                <Contact />
+              </Route> */}
 
               {/* If none of the previous routes render anything,
                   this route acts as a fallback.

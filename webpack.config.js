@@ -24,13 +24,28 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
-      }
+			},
+			{
+				test: /\.(jpe?g|gif|png|svg)$/i,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 10000
+						}
+					}
+				]
+			}
 		]
 	},
 	resolve: {
 		extensions: ['.js', '.jsx'],
 		alias: {
-			'@': path.resolve(__dirname, 'src/'),
+			'@components': path.resolve(__dirname, 'src/components/'),
+			'@helpers': path.resolve(__dirname, 'src/shared/helpers'),
+			'@models': path.resolve(__dirname, 'src/shared/models'),
+			'@services': path.resolve(__dirname, 'src/shared/services'),
+			'@public': path.resolve(__dirname, 'src/assets'),
 		}
 	},
 	plugins: [new HtmlWebpackPlugin({

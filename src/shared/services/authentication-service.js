@@ -1,27 +1,26 @@
 import { BehaviorSubject } from 'rxjs';
 
-// import config from 'config';
+import Config from 'config';
 import { handleResponse } from '../helpers/handle-response';
 
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
 
 export const authenticationService = {
 	logIn,
-	logout,
+	logOut,
 	currentUser: currentUserSubject.asObservable(),
 	get currentUserValue () { return currentUserSubject.value },
-	setUser
+	setUser,
 };
 
 function logIn(data) {
 	const requestOptions = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
+		credentials: 'include',
 		body: JSON.stringify(data)
 	};
-	debugger
-	return fetch(`${process.env.API_URL}/session/authenticate`, requestOptions)
-	// return fetch(`http://localhost:4000/session/authenticate`, requestOptions)
+	return fetch(`${Config.apiUrl}/session/authenticate`, requestOptions)
 		.then(handleResponse)
 		.then(user => {
 			// store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -32,16 +31,26 @@ function logIn(data) {
 		});
 }
 
-function logout() {
-	// remove user from local storage to log user out
-	localStorage.removeItem('currentUser');
-	currentUserSubject.next(null);
-	return true;
+function logOut() {
+	const requestOptions = {
+		method: 'DELETE',
+		headers: { 'Content-Type': 'application/json' },
+		credentials: 'include'
+		// body: JSON.stringify(data)
+	};
+	return fetch(`${Config.apiUrl}/session/`, requestOptions)
+		.then(handleResponse)
+		.then(response => {
+			localStorage.removeItem('currentUser');
+			currentUserSubject.next(null);
+			return response;
+		});
 }
 
 function setUser(user) {
-	// remove user from local storage to log user out
+	// set user from local storage
 	localStorage.removeItem('currentUser');
 	localStorage.setItem('currentUser', JSON.stringify(user));
 	currentUserSubject.next(null);
 }
+

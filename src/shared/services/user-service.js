@@ -1,5 +1,5 @@
-// import config from 'config';
-import { handleResponse } from '../helpers/handle-response';
+import Config from 'config';
+import { handleResponse } from '@helpers/handle-response';
 // import { authHeader } from '../helpers/auth-header';
 import { authenticationService } from './authentication-service'
 
@@ -11,11 +11,10 @@ function signUp(data) {
   const requestOptions = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
+		credentials: 'include',
 		body: JSON.stringify(data)
 	};
-	debugger
-	return fetch(`${process.env.API_URL}/users`, requestOptions)
-  // return fetch(`http://localhost:4000/users`, requestOptions)
+	return fetch(`${Config.apiUrl}/users`, requestOptions)
   .then(handleResponse)
   .then(user => {
 		authenticationService.setUser(user)
