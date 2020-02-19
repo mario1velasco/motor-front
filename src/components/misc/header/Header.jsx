@@ -24,7 +24,11 @@ class Header extends React.Component {
 
   // CALLBACKS
   componentDidMount() {
-    authenticationService.currentUser.subscribe(x => this.setState({ currentUser: x }));
+    authenticationService.currentUser.subscribe(function(user) {
+      if (user) {
+        this.setState({ currentUser: user })
+      }
+    }.bind(this));
   }
 
   // MÉTODOS DE INSTANCIA

@@ -13,6 +13,8 @@ import {
 
 // CONSTANTES
 const LOGIN = '/log-in'
+const HOME = '/home'
+
 
 class Index extends React.Component {
 
@@ -21,8 +23,8 @@ class Index extends React.Component {
     super(props);
     this.state = {
       apiError: null,
-      currentUser: null,
-      currentUser: authenticationService.currentUserValue,
+      // currentUser: null,
+      // currentUser: authenticationService.currentUserValue,
     };
   }
 

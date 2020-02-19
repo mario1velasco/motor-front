@@ -22,9 +22,17 @@ class Home extends React.Component {
     this.state = {
       apiError: null,
       currentUser: null,
-      currentUser: authenticationService.currentUserValue,
     };
   }
+
+    // CALLBACKS
+    componentDidMount() {
+      authenticationService.currentUser.subscribe(function(user) {
+        if (user) {
+          this.setState({ currentUser: user })
+        }
+      }.bind(this));
+    }
 
   // EVENTOS
   onClickLogOut() {
@@ -47,7 +55,7 @@ class Home extends React.Component {
     );
   }
 
-  render(){
+  render() {
     if (this.state && this.state.currentUser){
       return (
         <div>
@@ -77,10 +85,10 @@ class Home extends React.Component {
         </div>
       );
 
-    } else if(this.state) {
+    } else if(!this.state.currentUser) {
       return (
         <div>
-          <Redirect to={LOGIN}/>
+          {/* <Redirect to={LOGIN}/> */}
         </div>
       );
     }
