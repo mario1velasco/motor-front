@@ -1,11 +1,24 @@
-import React from 'react';
-import {
-  Carousel
-} from 'react-bootstrap';
-import img1 from '../../../assets/img/1024-1.jpg'
-import img2 from '../../../assets/img/1024-2.jpg'
-import img3 from '../../../assets/img/1024-3.jpg'
+/////////////
+// IMPORTS //
+/////////////
 
+// BÁSICO
+import React from 'react';
+
+// CONSTANTES
+import SHARED from '@utils/global-constants';
+
+// PUBLICO
+import img1 from '@public/img/1024-1.jpg'
+import img2 from '@public/img/1024-2.jpg'
+import img3 from '@public/img/1024-3.jpg'
+
+// COMPONENTES EXTERNOS
+import { Carousel } from 'react-bootstrap';
+
+//////////////////////////
+// COMPONENTE PRINCIPAL //
+//////////////////////////
 function About() {
     return (
       <div>
@@ -60,7 +73,7 @@ function About() {
           <div>
             <h2>¿Como empiezo?</h2>
 
-            <p>Es muy facil de usar, simplemente <a href="/sign-up"><strong>cree una cuenta</strong></a> y ya podrá usar todos los beneficos que ofrece esta increible red social.</p>
+            <p>Es muy facil de usar, simplemente <a href={SHARED.SIGNUP_PATH}><strong>cree una cuenta</strong></a> y ya podrá usar todos los beneficos que ofrece esta increible red social.</p>
           </div>
         </div>
         <div className='about'>
@@ -70,4 +83,7 @@ function About() {
     );
   }
 
+////////////
+// EXPORT //
+////////////
 export default About;

@@ -1,22 +1,27 @@
+/////////////
+// IMPORTS //
+/////////////
+
+// BÁSICO
 import React from 'react';
-import { authenticationService } from '@services/authentication-service';
-import {
-  withRouter
-} from "react-router-dom";
-import {
-  Form,
-  Button,
-  Nav,
-  Alert,
-} from 'react-bootstrap';
+import { withRouter, Redirect } from "react-router-dom";
 
 // CONSTANTES
-const HOME = '/home'
-const SIGNUP = '/sign-up'
+import SHARED from '@utils/global-constants';
 
+// SERVICIOS
+import { authenticationService } from '@services/authentication-service';
+
+// COMPONENTES EXTERNOS
+import { Form, Button, Nav, Alert } from 'react-bootstrap';
+
+//////////////////////////
+// COMPONENTE PRINCIPAL //
+//////////////////////////
 class LogIn extends React.Component {
-
-  // CONSTRUCTOR
+  /////////////////
+  // CONSTRUCTOR //
+  /////////////////
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +31,9 @@ class LogIn extends React.Component {
     };
   }
 
-  // EVENTOS
+  /////////////
+  // EVENTOS //
+  /////////////
   onSubmitForm(event) {
     event.preventDefault();
     const data = {
@@ -36,7 +43,9 @@ class LogIn extends React.Component {
     authenticationService.logIn(data)
       .then(
         user => {
-          this.props.history.push(HOME);
+          console.log("Login oK ->"+ SHARED.HOME_PATH);
+          <Redirect to={SHARED.HOME_PATH} />
+          // this.props.history.push(SHARED.HOME_PATH);
         },
         error => {
           this.setState({apiError: error.message ? error.message : error })
@@ -52,13 +61,14 @@ class LogIn extends React.Component {
     this.setState({userPassword: field.target.value});
   }
 
-  // RENDER
-  // Enlace para ir a signUp
+  /////////////
+  // RENDERS //
+  /////////////
   renderSignUp() {
     return (
       <Nav>
         <Nav.Item>
-          <Nav.Link href={SIGNUP}>
+          <Nav.Link href={SHARED.SIGNUP_PATH}>
             ¿Nuevo usuario? <strong>Ir a registrarse.</strong>
           </Nav.Link>
         </Nav.Item>
@@ -112,4 +122,7 @@ class LogIn extends React.Component {
   }
 }
 
+////////////
+// EXPORT //
+////////////
 export default withRouter(LogIn);

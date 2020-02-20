@@ -1,46 +1,54 @@
+/////////////
+// IMPORTS //
+/////////////
+
+// BÁSICO
 import React from 'react';
-import { authenticationService } from '@services/authentication-service';
-import {
-  Redirect,
-  withRouter
-} from "react-router-dom";
-import {
-  Button,
-  Container,
-  Row,
-  Col
-} from 'react-bootstrap';
+import { Redirect, withRouter } from "react-router-dom";
 
 // CONSTANTES
-const LOGIN = '/log-in'
+import SHARED from '@utils/global-constants';
 
+// SERVICIOS
+import { authenticationService } from '@services/authentication-service';
+
+// COMPONENTES EXTERNOS
+import { Button, Container, Row, Col } from 'react-bootstrap';
+
+//////////////////////////
+// COMPONENTE PRINCIPAL //
+//////////////////////////
 class Home extends React.Component {
-
-  // CONSTRUCTOR
+  /////////////////
+  // CONSTRUCTOR //
+  /////////////////
   constructor(props) {
     super(props);
     this.state = {
       apiError: null,
-      currentUser: null,
+      // currentUser: authenticationService.currentUserValue,
+      // currentUser: null,
     };
   }
 
-    // CALLBACKS
-    componentDidMount() {
-      authenticationService.currentUser.subscribe(function(user) {
-        if (user) {
-          this.setState({ currentUser: user })
-        }
-      }.bind(this));
-    }
+  // CALLBACKS
+  // componentDidMount() {
+  //   authenticationService.currentUser.subscribe(function(user) {
+  //     if (user) {
+  //       this.setState({ currentUser: user })
+  //     }
+  //   }.bind(this));
+  // }
 
-  // EVENTOS
+  /////////////
+  // EVENTOS //
+  /////////////
   onClickLogOut() {
     authenticationService.logOut()
     .then(
       response => {
         console.log(response);
-        this.props.history.push(LOGIN);
+        this.props.history.push(SHARED.LOGIN_PATH);
       },
       error => {
         console.log(error);
@@ -51,22 +59,35 @@ class Home extends React.Component {
 
   onClickEdit() {
     return (
-      <Redirect to={LOGIN}/>
+      <Redirect to=
+          {{
+          pathname: '/users',
+          state: { id: '123' }
+        }}
+      />
     );
   }
 
+  /////////////
+  // RENDERS //
+  /////////////
   render() {
-    if (this.state && this.state.currentUser){
+    const currentUser = authenticationService.currentUserValue;
+    debugger
+    // HOME
+    if (currentUser){
       return (
         <div>
           <h2>Mi Perfil</h2>
           <Container>
             <Row>
               <Col>
-                <span><strong>Email:</strong> {this.state.currentUser.email}</span>
+                <span><strong>Email:</strong> {currentUser.email}</span>
               </Col>
               <Col>
-                <Button variant="primary" onClick={() => this.onClickEdit()}>Editar mi perfil</Button>
+                <a href={"/users/3"}>
+                  <Button variant="primary">Editar mi perfil</Button>
+                </a>
               </Col>
             </Row>
             <Row>
@@ -85,14 +106,13 @@ class Home extends React.Component {
         </div>
       );
 
-    } else if(!this.state.currentUser) {
-      return (
-        <div>
-          {/* <Redirect to={LOGIN}/> */}
-        </div>
-      );
+    } else if(!currentUser) {
+      return null;
     }
   }
 }
 
+////////////
+// EXPORT //
+////////////
 export default withRouter(Home);

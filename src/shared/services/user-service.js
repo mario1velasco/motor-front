@@ -17,7 +17,6 @@ function signUp(data) {
 	return fetch(`${Config.apiUrl}/users`, requestOptions)
   .then(handleResponse)
   .then(user => {
-		authenticationService.setUser(user)
 		return user;
   });
 }

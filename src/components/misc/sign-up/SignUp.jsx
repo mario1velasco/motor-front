@@ -1,26 +1,27 @@
+/////////////
+// IMPORTS //
+/////////////
+
+// BÁSICO
 import React from 'react';
-// import User from '../../shared/models/user';
-import { userService } from '@services/user-service';
-import {
-  withRouter
-} from "react-router-dom";
-import {
-  Form,
-  Button,
-  Nav,
-  Alert
-} from 'react-bootstrap';
+import { withRouter } from "react-router-dom";
 
 // CONSTANTES
-const HOME = '/home'
-const LOGIN = '/log-in'
-const EMPTY_ERROR = 'Password cannot be empty.'
-const LENGTH_ERROR = 'Please enter more characters.'
-const PASSWORD_ERROR = 'Passwords have to be the same'
+import SHARED from '@utils/global-constants';
 
+// SERVICIOS
+import { userService } from '@services/user-service';
+
+// COMPONENTES EXTERNOS
+import { Form, Button, Nav, Alert } from 'react-bootstrap';
+
+//////////////////////////
+// COMPONENTE PRINCIPAL //
+//////////////////////////
 class SignUp extends React.Component {
-
-  // CONSTRUCTOR
+  /////////////////
+  // CONSTRUCTOR //
+  /////////////////
   constructor(props) {
     super(props);
     this.state = {
@@ -32,33 +33,33 @@ class SignUp extends React.Component {
     };
   }
 
-  // CALLBACKS
-  componentDidMount() {
-  }
-
-  // METODOS DE INSTANCIA
+  //////////////////////////
+  // MÉTODOS DE INSTANCIA //
+  //////////////////////////
   checkPassword() {
     const { userPassword } = this.state;
     if (!userPassword) {
       this.setState({
-        passwordError: EMPTY_ERROR
+        passwordError: SHARED.EMPTY_ERROR_FORM_VALIDATION
       })
       return false;
     } else if (userPassword.length < 3) {
       this.setState({
-        passwordError: LENGTH_ERROR
+        passwordError: SHARED.LENGTH_ERROR_FORM_VALIDATION
       })
       return false;
     } else if(this.state.userPassword !== this.state.userConfirmationPassword) {
       this.setState({
-        passwordError: PASSWORD_ERROR
+        passwordError: SHARED.PASSWORD_ERROR_FORM_VALIDATION
       })
       return false;
     }
     return true;
   }
 
-  // EVENTOS
+  /////////////
+  // EVENTOS //
+  /////////////
   onSubmitForm(event) {
     event.preventDefault();
     if(this.checkPassword()) {
@@ -69,7 +70,7 @@ class SignUp extends React.Component {
       userService.signUp(data)
       .then(
         user => {
-          this.props.history.push(HOME);
+          this.props.history.push(SHARED.LOGIN_PATH);
         },
         error => {
           this.setState({apiError: error.message ? error.message : error })
@@ -96,13 +97,14 @@ class SignUp extends React.Component {
     });
   }
 
-  // RENDER
-  // Enlace para ir a signUp
+  /////////////
+  // RENDERS //
+  /////////////
   renderLogIn() {
     return (
       <Nav>
         <Nav.Item>
-          <Nav.Link href={LOGIN}>
+          <Nav.Link href={SHARED.LOGIN_PATH}>
             ¿Ya tienes cuenta? <strong>Ir a inicio de sesión.</strong>
           </Nav.Link>
         </Nav.Item>
@@ -178,4 +180,7 @@ class SignUp extends React.Component {
   }
 }
 
+////////////
+// EXPORT //
+////////////
 export default withRouter(SignUp);

@@ -1,53 +1,71 @@
+/////////////
+// IMPORTS //
+/////////////
+
+// BÁSICO
 import React from 'react';
-import { authenticationService } from '@services/authentication-service';
-import {
-  withRouter
-} from "react-router-dom";
-import {
-  Navbar,
-  Nav,
-} from 'react-bootstrap';
-import logo from '@public/img/mc-logo.jpg';
+import { withRouter } from "react-router-dom";
 
 // CONSTANTES
-const LOGIN = '/log-in'
+import SHARED from '@utils/global-constants';
 
+// SERVICIOS
+import { authenticationService } from '@services/authentication-service';
+
+// PUBLICO
+import logo from '@public/img/mc-logo.jpg';
+
+// COMPONENTES EXTERNOS
+import { Navbar, Nav } from 'react-bootstrap';
+
+//////////////////////////
+// COMPONENTE PRINCIPAL //
+//////////////////////////
 class Header extends React.Component {
-  // CONSTRUCTOR
+  /////////////////
+  // CONSTRUCTOR //
+  /////////////////
   constructor(props) {
     super(props);
 
-    this.state = {
-        currentUser: null
-    };
+    // this.state = {
+    //     currentUser: null
+    // };
   }
 
-  // CALLBACKS
-  componentDidMount() {
-    authenticationService.currentUser.subscribe(function(user) {
-      if (user) {
-        this.setState({ currentUser: user })
-      }
-    }.bind(this));
-  }
+  ///////////////
+  // CALLBACKS //
+  ///////////////
+  // componentDidMount() {
+  //   authenticationService.currentUser.subscribe(function(user) {
+  //     if (user) {
+  //       this.setState({ currentUser: user })
+  //     }
+  //   }.bind(this));
+  // }
 
-  // MÉTODOS DE INSTANCIA
+  //////////////////////////
+  // MÉTODOS DE INSTANCIA //
+  //////////////////////////
   onClickLogOut() {
     authenticationService.logOut()
     .then(
       response => {
         console.log(response);
-        this.props.history.push(LOGIN);
+        this.props.history.push(SHARED.LOGIN_PATH);
       },
       error => {
         console.log(error);
-        this.props.history.push(LOGIN);
+        this.props.history.push(SHARED.LOGIN_PATH);
       }
     );
   }
 
-  // RENDERS
+  /////////////
+  // RENDERS //
+  /////////////
   render() {
+    const currentUser= authenticationService.currentUserValue
     return (
       <Navbar fixed="top" bg="light" expand="lg">
         <Navbar.Brand href="/">
@@ -63,13 +81,13 @@ class Header extends React.Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            { this.state && !this.state.currentUser &&
+            { !currentUser &&
               <Nav.Link href="/log-in">Inicar sesión</Nav.Link>
             }
-            { this.state && this.state.currentUser &&
+            {  currentUser &&
               <Nav.Link href="/home">Inicio</Nav.Link>
             }
-            { this.state && this.state.currentUser &&
+            {  currentUser &&
               <Nav.Link onClick={() => this.onClickLogOut()}>Salir</Nav.Link>
             }
           </Nav>
@@ -79,4 +97,7 @@ class Header extends React.Component {
   }
 };
 
+////////////
+// EXPORT //
+////////////
 export default withRouter(Header);

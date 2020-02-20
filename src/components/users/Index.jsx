@@ -16,7 +16,7 @@ const LOGIN = '/log-in'
 const HOME = '/home'
 
 
-class Index extends React.Component {
+class UsersIndex extends React.Component {
 
   // CONSTRUCTOR
   constructor(props) {
@@ -89,4 +89,4 @@ class Index extends React.Component {
   }
 }
 
-export default withRouter(Index);
+export default withRouter(UsersIndex);

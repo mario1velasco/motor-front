@@ -44,8 +44,9 @@ module.exports = {
 			'@components': path.resolve(__dirname, 'src/components/'),
 			'@helpers': path.resolve(__dirname, 'src/shared/helpers'),
 			'@models': path.resolve(__dirname, 'src/shared/models'),
-			'@services': path.resolve(__dirname, 'src/shared/services'),
 			'@public': path.resolve(__dirname, 'src/assets'),
+			'@services': path.resolve(__dirname, 'src/shared/services'),
+			'@utils': path.resolve(__dirname, 'src/shared/utils'),
 		}
 	},
 	plugins: [new HtmlWebpackPlugin({

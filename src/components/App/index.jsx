@@ -1,26 +1,34 @@
+/////////////
+// IMPORTS //
+/////////////
+
+// BÁSICO
 import React from 'react';
+import { Router, Switch, Route, withRouter, Redirect } from "react-router-dom";
+
+// CONSTANTES
+import SHARED from '@utils/global-constants';
+
+// HELPERS
+import { history } from '@helpers/history';
+
+// SERVICIOS
+import { authenticationService } from '@services/authentication-service';
+
+// ESTILOS
 import './App.css';
+
+// COMPONENTES PROPIOS
 import LogIn from '@components/misc/log-in/LogIn'
 import SignUp from '@components/misc/sign-up/SignUp'
 import Home from '@components/misc/home/Home'
-// import UserShow from '@components/user/Index'
+import UsersShow from '@components/users/Show'
 import About from '@components/misc/about/About'
 import Header from '@components/misc/header/Header'
-import { authenticationService } from '@services/authentication-service';
-import { history } from '@helpers/history';
-import {
-  Router,
-  Switch,
-  Route,
-  withRouter,
-  Redirect
-} from "react-router-dom";
 
-// CONSTANTES
-const HOME_PATH = '/home'
-const LOGIN_PATH = '/log-in'
-const SIGNUP_PATH = '/sign-up'
-const ROOT_PATH = '/'
+////////////////
+// CONSTANTES //
+////////////////
 const PrivateRoute = ({ component: Component, authenticated, ...rest }) => (
   <Route
     {...rest}
@@ -32,21 +40,31 @@ const PrivateRoute = ({ component: Component, authenticated, ...rest }) => (
 )
 
 class App extends React.Component {
-  // CONSTRUCTOR
+  /////////////////
+  // CONSTRUCTOR //
+  /////////////////
   constructor(props) {
     super(props);
-    this.state = {
-        currentUser: authenticationService.currentUserValue
-    };
+    // this.state = {
+    //     currentUser: authenticationService.currentUserValue
+    // };
   }
 
-  // METODOS DE INSTANCIA
+  //////////////////////////
+  // MÉTODOS DE INSTANCIA //
+  //////////////////////////
   isAuthenticated() {
-    return this.state.currentUser ? true : false;
+    const aa = authenticationService.currentUserValue
+    debugger
+    return authenticationService.currentUserValue ? true : false;
   }
 
-  // RENDERS
+  /////////////
+  // RENDERS //
+  /////////////
   render() {
+    const aa = authenticationService.currentUserValue
+    // AUTH
     return (
       <div>
         <Router history={history}>
@@ -56,22 +74,22 @@ class App extends React.Component {
               {/* If the current URL is /home, this route is rendered
                   while the rest are ignored */}
               <PrivateRoute
-                path={HOME_PATH}
+                path={SHARED.HOME_PATH}
                 authenticated={this.isAuthenticated()}
                 component={Home}
               />
-              <Route path={LOGIN_PATH} component={LogIn} />
-              <Route path={SIGNUP_PATH} component={SignUp} />
+              <Route path={SHARED.LOGIN_PATH} component={LogIn} />
+              <Route path={SHARED.SIGNUP_PATH} component={SignUp} />
               {/* Note how these two routes are ordered. The more specific
                 path="/contact/:id" comes before path="/contact" so that
                 route will render when viewing an individual contact */}
-              {/* <Route path="/contact/:id">
-                <Contact />
+              {/* <Route path="/users/:id">
+                <UsersShow />
               </Route> */}
 
               {/* If none of the previous routes render anything,
                 this route acts as a fallback.*/}
-              <Route path={ROOT_PATH} component={About} />
+              <Route path={SHARED.ROOT_PATH} component={About} />
             </Switch>
           </div>
         </Router>
@@ -80,4 +98,7 @@ class App extends React.Component {
   }
 }
 
+////////////
+// EXPORT //
+////////////
 export default withRouter(App);
