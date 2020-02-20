@@ -66,9 +66,11 @@ class Header extends React.Component {
   /////////////
   render() {
     const currentUser= authenticationService.currentUserValue
+    // debugger
+    // HEADER
     return (
       <Navbar fixed="top" bg="light" expand="lg">
-        <Navbar.Brand href="/">
+        <Navbar.Brand onClick={() =>this.props.history.push(SHARED.ROOT_PATH)}>
           <img
             src={logo}
             width="30"
@@ -82,12 +84,16 @@ class Header extends React.Component {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             { !currentUser &&
-              <Nav.Link href="/log-in">Inicar sesión</Nav.Link>
+              <Nav.Link onClick={() =>this.props.history.push(SHARED.LOGIN_PATH)}>
+                Inicar sesión
+              </Nav.Link>
             }
-            {  currentUser &&
-              <Nav.Link href="/home">Inicio</Nav.Link>
+            { currentUser &&
+              <Nav.Link onClick={() =>this.props.history.push(SHARED.HOME_PATH)}>
+                Inicio
+              </Nav.Link>
             }
-            {  currentUser &&
+            { currentUser &&
               <Nav.Link onClick={() => this.onClickLogOut()}>Salir</Nav.Link>
             }
           </Nav>

@@ -4,7 +4,7 @@
 
 // BÁSICO
 import React from 'react';
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 // CONSTANTES
 import SHARED from '@utils/global-constants';
@@ -44,8 +44,7 @@ class LogIn extends React.Component {
       .then(
         user => {
           console.log("Login oK ->"+ SHARED.HOME_PATH);
-          <Redirect to={SHARED.HOME_PATH} />
-          // this.props.history.push(SHARED.HOME_PATH);
+          this.props.history.push(SHARED.HOME_PATH);
         },
         error => {
           this.setState({apiError: error.message ? error.message : error })
@@ -68,7 +67,7 @@ class LogIn extends React.Component {
     return (
       <Nav>
         <Nav.Item>
-          <Nav.Link href={SHARED.SIGNUP_PATH}>
+          <Nav.Link onClick={() =>this.props.history.push(SHARED.SIGNUP_PATH)}>
             ¿Nuevo usuario? <strong>Ir a registrarse.</strong>
           </Nav.Link>
         </Nav.Item>

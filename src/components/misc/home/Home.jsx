@@ -73,7 +73,7 @@ class Home extends React.Component {
   /////////////
   render() {
     const currentUser = authenticationService.currentUserValue;
-    debugger
+    // debugger
     // HOME
     if (currentUser){
       return (

@@ -104,7 +104,7 @@ class SignUp extends React.Component {
     return (
       <Nav>
         <Nav.Item>
-          <Nav.Link href={SHARED.LOGIN_PATH}>
+          <Nav.Link  onClick={() =>this.props.history.push(SHARED.LOGIN_PATH)}>
             ¿Ya tienes cuenta? <strong>Ir a inicio de sesión.</strong>
           </Nav.Link>
         </Nav.Item>
