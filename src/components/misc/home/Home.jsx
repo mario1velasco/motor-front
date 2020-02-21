@@ -4,7 +4,7 @@
 
 // BÁSICO
 import React from 'react';
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 // CONSTANTES
 import SHARED from '@utils/global-constants';
@@ -15,31 +15,13 @@ import { authenticationService } from '@services/authentication-service';
 // COMPONENTES EXTERNOS
 import { Button, Container, Row, Col } from 'react-bootstrap';
 
+// COMPONENTES PROPIOS
+import Common from '@components/main-container/Common';
+
 //////////////////////////
 // COMPONENTE PRINCIPAL //
 //////////////////////////
-class Home extends React.Component {
-  /////////////////
-  // CONSTRUCTOR //
-  /////////////////
-  constructor(props) {
-    super(props);
-    this.state = {
-      apiError: null,
-      // currentUser: authenticationService.currentUserValue,
-      // currentUser: null,
-    };
-  }
-
-  // CALLBACKS
-  // componentDidMount() {
-  //   authenticationService.currentUser.subscribe(function(user) {
-  //     if (user) {
-  //       this.setState({ currentUser: user })
-  //     }
-  //   }.bind(this));
-  // }
-
+class Home extends Common {
   /////////////
   // EVENTOS //
   /////////////
@@ -47,24 +29,11 @@ class Home extends React.Component {
     authenticationService.logOut()
     .then(
       response => {
-        console.log(response);
         this.props.history.push(SHARED.LOGIN_PATH);
       },
       error => {
-        console.log(error);
         this.setState({apiError: error.message ? error.message : error })
       }
-    );
-  }
-
-  onClickEdit() {
-    return (
-      <Redirect to=
-          {{
-          pathname: '/users',
-          state: { id: '123' }
-        }}
-      />
     );
   }
 
@@ -72,9 +41,7 @@ class Home extends React.Component {
   // RENDERS //
   /////////////
   render() {
-    const currentUser = authenticationService.currentUserValue;
-    // debugger
-    // HOME
+    const currentUser = this.getCurrentUser();
     if (currentUser){
       return (
         <div>
@@ -85,7 +52,12 @@ class Home extends React.Component {
                 <span><strong>Email:</strong> {currentUser.email}</span>
               </Col>
               <Col>
-                <Button variant="primary" onClick={() =>this.props.history.push(`${SHARED.USERS_PATH}/${currentUser.id}`)}>Editar mi perfil</Button>
+                <Button
+                  variant="primary"
+                  onClick={() =>this.props.history.push(`${SHARED.USERS_PATH}/${currentUser.id}/edit`)}
+                >
+                  Editar mi perfil
+                </Button>
               </Col>
             </Row>
             <Row>
@@ -103,9 +75,8 @@ class Home extends React.Component {
           </Container>
         </div>
       );
-
-    } else if(!currentUser) {
-      return null;
+    } else {
+      return this.getAllHelpers().renderNotAuthenticated();
     }
   }
 }

@@ -15,10 +15,13 @@ import { authenticationService } from '@services/authentication-service';
 // COMPONENTES EXTERNOS
 import { Form, Button, Nav, Alert } from 'react-bootstrap';
 
+// COMPONENTES PROPIOS
+import Common from '@components/main-container/Common';
+
 //////////////////////////
 // COMPONENTE PRINCIPAL //
 //////////////////////////
-class LogIn extends React.Component {
+class LogIn extends Common {
   /////////////////
   // CONSTRUCTOR //
   /////////////////
@@ -43,7 +46,6 @@ class LogIn extends React.Component {
     authenticationService.logIn(data)
       .then(
         user => {
-          console.log("Login oK ->"+ SHARED.HOME_PATH);
           this.props.history.push(SHARED.HOME_PATH);
         },
         error => {

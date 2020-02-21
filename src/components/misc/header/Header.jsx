@@ -18,32 +18,13 @@ import logo from '@public/img/mc-logo.jpg';
 // COMPONENTES EXTERNOS
 import { Navbar, Nav } from 'react-bootstrap';
 
+// COMPONENTES PROPIOS
+import Common from '@components/main-container/Common';
+
 //////////////////////////
 // COMPONENTE PRINCIPAL //
 //////////////////////////
-class Header extends React.Component {
-  /////////////////
-  // CONSTRUCTOR //
-  /////////////////
-  constructor(props) {
-    super(props);
-
-    // this.state = {
-    //     currentUser: null
-    // };
-  }
-
-  ///////////////
-  // CALLBACKS //
-  ///////////////
-  // componentDidMount() {
-  //   authenticationService.currentUser.subscribe(function(user) {
-  //     if (user) {
-  //       this.setState({ currentUser: user })
-  //     }
-  //   }.bind(this));
-  // }
-
+class Header extends Common {
   //////////////////////////
   // MÉTODOS DE INSTANCIA //
   //////////////////////////
@@ -51,11 +32,9 @@ class Header extends React.Component {
     authenticationService.logOut()
     .then(
       response => {
-        console.log(response);
         this.props.history.push(SHARED.LOGIN_PATH);
       },
       error => {
-        console.log(error);
         this.props.history.push(SHARED.LOGIN_PATH);
       }
     );
@@ -65,9 +44,7 @@ class Header extends React.Component {
   // RENDERS //
   /////////////
   render() {
-    const currentUser= authenticationService.currentUserValue
-    // debugger
-    // HEADER
+    const currentUser= this.getCurrentUser();
     return (
       <Navbar fixed="top" bg="light" expand="lg">
         <Navbar.Brand onClick={() =>this.props.history.push(SHARED.ROOT_PATH)}>

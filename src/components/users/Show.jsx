@@ -10,7 +10,7 @@ import { withRouter } from "react-router-dom";
 import SHARED from '@utils/global-constants';
 
 // HELPERS
-import { CommonHelper } from '@helpers/common';
+import { commonHelper } from '@helpers/common';
 
 // SERVICIOS
 import { authenticationService } from '@services/authentication-service';
@@ -22,16 +22,6 @@ import { Button, Form } from 'react-bootstrap';
 // COMPONENTE PRINCIPAL //
 //////////////////////////
 class UsersShow extends React.Component {
-  /////////////////
-  // CONSTRUCTOR //
-  /////////////////
-  constructor(props) {
-    super(props);
-    this.state = {
-      apiError: null
-    };
-  }
-
   /////////////
   // EVENTOS //
   /////////////
@@ -53,16 +43,17 @@ class UsersShow extends React.Component {
   // RENDERS //
   /////////////
   render(){
+    const currentUser = this.getCurrentUser();
     if (authenticationService.currentUserValue){
       return (
         <div>
           <h1>SHOW</h1>
-          {CommonHelper().renderBackButton()}
+          <span><strong>Email:</strong> {currentUser.email}</span>
+          {commonHelper().renderBackButton()}
         </div>
       );
-
     } else {
-      return null;
+      return this.getAllHelpers().renderNotAuthenticated();
     }
   }
 }

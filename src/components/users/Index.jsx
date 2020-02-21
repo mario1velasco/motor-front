@@ -11,56 +11,29 @@ import {
   Col
 } from 'react-bootstrap';
 
-// CONSTANTES
-const LOGIN = '/log-in'
-const HOME = '/home'
 
+// COMPONENTES PROPIOS
+import Common from '@components/main-container/Common';
 
-class UsersIndex extends React.Component {
-
-  // CONSTRUCTOR
-  constructor(props) {
-    super(props);
-    this.state = {
-      apiError: null,
-      // currentUser: null,
-      // currentUser: authenticationService.currentUserValue,
-    };
-  }
-
-  // EVENTOS
-  onClickLogOut() {
-    authenticationService.logOut()
-    .then(
-      response => {
-        console.log(response);
-        this.props.history.push(LOGIN);
-      },
-      error => {
-        console.log(error);
-        this.setState({apiError: error.message ? error.message : error })
-      }
-    );
-  }
-
-  onClickEdit() {
-    return (
-      <Redirect to={LOGIN}/>
-    );
-  }
-
+class UsersIndex extends Common {
+  /////////////
+  // RENDERS //
+  /////////////
   render(){
-    if (authenticationService.currentUserValue){
+    let currentUser = this.getCurrentUser();
+    if (currentUser){
       return (
         <div>
           <h2>USERS INDEX</h2>
         </div>
       );
-
     } else {
-      return null;
+      return this.getAllHelpers().renderNotAuthenticated();
     }
   }
 }
 
+////////////
+// EXPORT //
+////////////
 export default withRouter(UsersIndex);

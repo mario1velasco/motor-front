@@ -7,12 +7,9 @@ import React from 'react';
 import { withRouter, Router } from "react-router-dom";
 
 // HELPERS
-import { HistoryHelper } from '@helpers/history';
+import { historyHelper } from '@helpers/history';
 
-// SERVICIOS
-import { authenticationService } from '@services/authentication-service';
-
-// ESTILOS
+// ESTILOS PROPIOS
 import './App.css';
 
 // COMPONENTES PROPIOS
@@ -20,22 +17,12 @@ import Header from '@components/misc/header/Header'
 import MyRouter from '@components/misc/router/MyRouter'
 
 class App extends React.Component {
-  /////////////////
-  // CONSTRUCTOR //
-  /////////////////
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //     currentUser: authenticationService.currentUserValue
-    // };
-  }
-
   /////////////
   // RENDERS //
   /////////////
   render() {
     return (
-      <Router history={HistoryHelper}>
+      <Router history={historyHelper}>
         <Header></Header>
         <div className="App">
           <MyRouter></MyRouter>

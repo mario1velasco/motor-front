@@ -15,10 +15,13 @@ import { userService } from '@services/user-service';
 // COMPONENTES EXTERNOS
 import { Form, Button, Nav, Alert } from 'react-bootstrap';
 
+// COMPONENTES PROPIOS
+import Common from '@components/main-container/Common';
+
 //////////////////////////
 // COMPONENTE PRINCIPAL //
 //////////////////////////
-class SignUp extends React.Component {
+class SignUp extends Common {
   /////////////////
   // CONSTRUCTOR //
   /////////////////
