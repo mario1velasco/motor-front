@@ -9,9 +9,6 @@ import { Router, Switch, Route, withRouter, Redirect } from "react-router-dom";
 // CONSTANTES
 import SHARED from '@utils/global-constants';
 
-// HELPERS
-import { history } from '@helpers/history';
-
 // SERVICIOS
 import { authenticationService } from '@services/authentication-service';
 
@@ -21,6 +18,7 @@ import Home from '@components/misc/home/Home'
 import LogIn from '@components/misc/log-in/LogIn'
 import SignUp from '@components/misc/sign-up/SignUp'
 import UsersShow from '@components/users/Show'
+import UsersIndex from '@components/users/Index'
 
 ////////////////
 // CONSTANTES //
@@ -64,9 +62,12 @@ class MyRouter extends React.Component {
         {/* Note how these two routes are ordered. The more specific
           path="/contact/:id" comes before path="/contact" so that
           route will render when viewing an individual contact */}
-        {/* <Route path="/users/:id">
+        <Route path="/users/:id">
           <UsersShow />
-        </Route> */}
+        </Route>
+        <Route path="/users">
+          <UsersIndex />
+        </Route>
 
         {/* If none of the previous routes render anything,
           this route acts as a fallback.*/}

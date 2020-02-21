@@ -85,9 +85,7 @@ class Home extends React.Component {
                 <span><strong>Email:</strong> {currentUser.email}</span>
               </Col>
               <Col>
-                <a href={"/users/3"}>
-                  <Button variant="primary">Editar mi perfil</Button>
-                </a>
+                <Button variant="primary" onClick={() =>this.props.history.push(`${SHARED.USERS_PATH}/${currentUser.id}`)}>Editar mi perfil</Button>
               </Col>
             </Row>
             <Row>

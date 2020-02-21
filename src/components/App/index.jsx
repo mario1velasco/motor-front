@@ -7,7 +7,7 @@ import React from 'react';
 import { withRouter, Router } from "react-router-dom";
 
 // HELPERS
-import { history } from '@helpers/history';
+import { HistoryHelper } from '@helpers/history';
 
 // SERVICIOS
 import { authenticationService } from '@services/authentication-service';
@@ -35,7 +35,7 @@ class App extends React.Component {
   /////////////
   render() {
     return (
-      <Router history={history}>
+      <Router history={HistoryHelper}>
         <Header></Header>
         <div className="App">
           <MyRouter></MyRouter>

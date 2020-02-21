@@ -50,41 +50,15 @@ class UsersIndex extends React.Component {
   }
 
   render(){
-    if (this.state && this.state.currentUser){
+    if (authenticationService.currentUserValue){
       return (
         <div>
-          <h2>Mi Perfil</h2>
-          <Container>
-            <Row>
-              <Col>
-                <span><strong>Email:</strong> {this.state.currentUser.email}</span>
-              </Col>
-              <Col>
-                <Button variant="primary" onClick={() => this.onClickEdit()}>Editar mi perfil</Button>
-              </Col>
-            </Row>
-            <Row>
-              <Col>1 of 3</Col>
-              <Col>2 of 3</Col>
-              <Col>3 of 3</Col>
-            </Row>
-            <Row>
-              <Col>1 of 3</Col>
-              <Col>
-                <Button variant="primary" onClick={() => this.onClickLogOut()}>Log Out</Button>
-              </Col>
-              <Col>3 of 3</Col>
-            </Row>
-          </Container>
+          <h2>USERS INDEX</h2>
         </div>
       );
 
-    } else if(this.state) {
-      return (
-        <div>
-          <Redirect to={LOGIN}/>
-        </div>
-      );
+    } else {
+      return null;
     }
   }
 }
