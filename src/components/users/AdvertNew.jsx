@@ -7,19 +7,22 @@ import React from 'react';
 import { withRouter } from "react-router-dom";
 
 // COMPONENTES PROPIOS
+import NestedTemplate from '@components/users/NestedTemplate';
+import AdvertsForm from '@components/adverts/_Form';
 import Common from '@components/main-container/Common';
-import UsersForm from './_Form';
 
 //////////////////////////
 // COMPONENTE PRINCIPAL //
 //////////////////////////
-class UsersEdit extends Common {
+class AdvertsNew extends NestedTemplate {
+
+
   /////////////
   // RENDERS //
   /////////////
   render(){
     return(
-      <UsersForm userId={this.props.match.params.userId}></UsersForm>
+      <AdvertsForm user={this.state.user}></AdvertsForm>
     );
   }
 }
@@ -27,4 +30,4 @@ class UsersEdit extends Common {
 ////////////
 // EXPORT //
 ////////////
-export default withRouter(UsersEdit);
+export default withRouter(AdvertsNew);

@@ -32,7 +32,8 @@ class UsersForm extends Common {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      user: null,
+      apiError: null,
     };
   }
 
@@ -45,6 +46,7 @@ class UsersForm extends Common {
       userService.getUser(this.props.userId)
       .then(
         user => {
+          debugger
           this.setState({
             user: user
           })
@@ -148,24 +150,19 @@ class UsersForm extends Common {
                   <Form.Row>
                     <Form.Group as={Col} md="6" controlId="formUsername">
                       <Form.Label>{SHARED.USER_MODEL.FIELDS.USERNAME}</Form.Label>
-                      <InputGroup>
-                        <InputGroup.Prepend>
-                          <InputGroup.Text>@</InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <Form.Control
-                          type="text"
-                          name="username"
-                          placeholder={SHARED.USER_MODEL.FIELDS.USERNAME}
-                          value={values.username}
-                          onChange={handleChange}
-                          isValid={touched.username && !errors.username}
-                          isInvalid={!!errors.username}
-                        />
-                        <Form.Control.Feedback>{SHARED.USER_VIEWS.FORM.FIELD_OK}</Form.Control.Feedback>
-                        <Form.Control.Feedback type="invalid">
-                          {errors.username}
-                        </Form.Control.Feedback>
-                      </InputGroup>
+                      <Form.Control
+                        type="text"
+                        name="username"
+                        placeholder={SHARED.USER_MODEL.FIELDS.USERNAME}
+                        value={values.username}
+                        onChange={handleChange}
+                        isValid={touched.username && !errors.username}
+                        isInvalid={!!errors.username}
+                      />
+                      <Form.Control.Feedback>{SHARED.USER_VIEWS.FORM.FIELD_OK}</Form.Control.Feedback>
+                      <Form.Control.Feedback type="invalid">
+                        {errors.username}
+                      </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} md="6" controlId="formTelephone">
                       <Form.Label>{SHARED.USER_MODEL.FIELDS.TELEPHONE}</Form.Label>

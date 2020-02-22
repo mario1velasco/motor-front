@@ -25,9 +25,9 @@ import Common from '@components/main-container/Common';
 // COMPONENTE PRINCIPAL //
 //////////////////////////
 class Header extends Common {
-  //////////////////////////
-  // MÉTODOS DE INSTANCIA //
-  //////////////////////////
+  /////////////
+  // EVENTOS //
+  /////////////
   onClickLogOut() {
     authenticationService.logOut()
     .then(
@@ -60,6 +60,9 @@ class Header extends Common {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
+            <Nav.Link onClick={() =>this.props.history.push(SHARED.ADVERTS_PATH)}>
+              Anuncios
+            </Nav.Link>
             { !currentUser &&
               <Nav.Link onClick={() =>this.props.history.push(SHARED.LOGIN_PATH)}>
                 Inicar sesión

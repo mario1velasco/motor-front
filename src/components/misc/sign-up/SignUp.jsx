@@ -129,6 +129,7 @@ class SignUp extends Common {
         ref={(form) => { this.form = form }}
         onSubmit={this.onSubmitForm.bind(this)}
       >
+        <h1>Creación de nuevo usuario</h1>
         {this.getAllHelpers().renderError(this.state.apiError)}
         <Form.Group controlId="formEmail">
           <Form.Label>Dirección email</Form.Label>

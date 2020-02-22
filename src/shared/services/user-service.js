@@ -1,7 +1,5 @@
 import Config from 'config';
 import { handleResponse } from '@helpers/handle-response';
-// import { authHeader } from '../helpers/auth-header';
-import { authenticationService } from './authentication-service'
 
 export const userService = {
 	saveUser,
@@ -50,8 +48,3 @@ function getUser(objectId) {
 		return user;
   });
 }
-
-// function getAll() {
-//     const requestOptions = { method: 'GET', headers: authHeader() };
-//     return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
-// }

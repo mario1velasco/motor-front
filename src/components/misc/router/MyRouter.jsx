@@ -15,8 +15,11 @@ import Common from '@components/main-container/Common';
 import Home from '@components/misc/home/Home'
 import LogIn from '@components/misc/log-in/LogIn'
 import SignUp from '@components/misc/sign-up/SignUp'
+import AdvertsIndex from '@components/adverts/Index'
+import AdvertsNew from '@components/adverts/New'
 import UsersIndex from '@components/users/Index'
 import UsersShow from '@components/users/Show'
+import UsersAdvertsNew from '@components/users/AdvertNew'
 import UsersEdit from '@components/users/Edit'
 
 ////////////////
@@ -50,6 +53,7 @@ class MyRouter extends Common {
         {/* RUTAS PÚBLICAS */}
         <Route path={SHARED.LOGIN_PATH} component={LogIn} />
         <Route path={SHARED.SIGNUP_PATH} component={SignUp} />
+        <Route path={SHARED.ADVERTS_PATH} component={AdvertsIndex} />
 
         {/* RUTAS PRIVADAS */}
         <PrivateRoute
@@ -57,16 +61,21 @@ class MyRouter extends Common {
           authenticated={this.isAuthenticated()}
           component={Home}
         />
-        {/* Note how these two routes are ordered. The more specific
-          path="/contact/:id" comes before path="/contact" so that
-          route will render when viewing an individual contact */}
+        {/* The more specific path="/contact/:id" comes before path="/contact"
+          so that route will render when viewing an individual contact */}
+        {/* USER */}
         <PrivateRoute
-          path={`${SHARED.USERS_PATH}/:id/edit`}
+          path={`${SHARED.USERS_PATH}/:userId/adverts/new`}
+          authenticated={this.isAuthenticated()}
+          component={UsersAdvertsNew}
+        />
+        <PrivateRoute
+          path={`${SHARED.USERS_PATH}/:userId/edit`}
           authenticated={this.isAuthenticated()}
           component={UsersEdit}
         />
         <PrivateRoute
-          path={`${SHARED.USERS_PATH}/:id`}
+          path={`${SHARED.USERS_PATH}/:userId`}
           authenticated={this.isAuthenticated()}
           component={UsersShow}
         />
@@ -75,6 +84,8 @@ class MyRouter extends Common {
           authenticated={this.isAuthenticated()}
           component={UsersIndex}
         />
+
+
         {/* If none of the previous routes render anything,
           this route acts as a fallback.*/}
         {/* RUTA RAIZ */}

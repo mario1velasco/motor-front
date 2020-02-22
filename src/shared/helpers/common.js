@@ -22,11 +22,11 @@ export const commonHelper = function() {
     // Renderiza el botón de volver
     renderBackButton: function() {
       return (
-        <Button variant="primary" onClick={ historyHelper.goBack }>Volver</Button>
+        <Button variant="link" onClick={ historyHelper.goBack }>{`${SHARED.BUTTON_BACK_TEXT}`}</Button>
       );
     },
 
-    // Renderiza
+    // Renderiza error
     renderError: function(textError) {
       if (textError) {
         return (
@@ -58,7 +58,7 @@ export const commonHelper = function() {
       );
     },
 
-    // Renderiza usuario no registrado
+    // Renderiza usuario no permitido
     renderNotPermissions: function() {
       return (
         <Alert variant="danger">

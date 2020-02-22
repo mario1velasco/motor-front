@@ -8,18 +8,18 @@ import { withRouter } from "react-router-dom";
 
 // COMPONENTES PROPIOS
 import Common from '@components/main-container/Common';
-import UsersForm from './_Form';
+import AdvertsForm from './_Form';
 
 //////////////////////////
 // COMPONENTE PRINCIPAL //
 //////////////////////////
-class UsersEdit extends Common {
+class AdvertsEdit extends Common {
   /////////////
   // RENDERS //
   /////////////
   render(){
     return(
-      <UsersForm userId={this.props.match.params.userId}></UsersForm>
+      <AdvertsForm userId={this.props.match.params.advertId}></AdvertsForm>
     );
   }
 }
@@ -27,4 +27,4 @@ class UsersEdit extends Common {
 ////////////
 // EXPORT //
 ////////////
-export default withRouter(UsersEdit);
+export default withRouter(AdvertsEdit);
