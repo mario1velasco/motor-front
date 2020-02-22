@@ -26,6 +26,17 @@ export const commonHelper = function() {
       );
     },
 
+    // Renderiza
+    renderError: function(textError) {
+      if (textError) {
+        return (
+          <Alert key="alert" variant='danger'>
+            {textError}
+          </Alert>
+        );
+      }
+    },
+
     // Renderiza usuario no registrado
     renderNotAuthenticated: function() {
       return (

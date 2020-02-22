@@ -77,23 +77,13 @@ class LogIn extends Common {
     );
   }
 
-  renderApiError() {
-    if (this.state.apiError) {
-      return (
-        <Alert key="alert" variant='danger'>
-          {this.state.apiError}
-        </Alert>
-      );
-    }
-  }
-
   render() {
     return (
       <Form
         ref={(form) => { this.form = form }}
         onSubmit={this.onSubmitForm.bind(this)}
       >
-        {this.renderApiError()}
+        {this.getAllHelpers().renderError(this.state.apiError)}
         <Form.Group controlId="formEmail">
           <Form.Label>Dirección email</Form.Label>
           <Form.Control
