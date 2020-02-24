@@ -46,7 +46,6 @@ class UsersForm extends Common {
       userService.getUser(this.props.userId)
       .then(
         user => {
-          debugger
           this.setState({
             user: user
           })
@@ -65,8 +64,9 @@ class UsersForm extends Common {
         setSubmitting(false);
         this.props.history.push(SHARED.HOME_PATH);
       },
-        error => {
-          this.setState({apiError: error.message ? error.message : error })
+      error => {
+        setSubmitting(false);
+        this.setState({apiError: error.message ? error.message : error })
       }
     );
   }

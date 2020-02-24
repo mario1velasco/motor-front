@@ -64,8 +64,9 @@ class AdvertsForm extends Common {
         setSubmitting(false);
         this.props.history.push(SHARED.ADVERTS_PATH);
       },
-        error => {
-          this.setState({apiError: error.message ? error.message : error })
+      error => {
+        setSubmitting(false);
+        this.setState({apiError: error.message ? error.message : error })
       }
     );
   }

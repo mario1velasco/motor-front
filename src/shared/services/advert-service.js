@@ -3,8 +3,25 @@ import { handleResponse } from '@helpers/handle-response';
 
 export const advertService = {
 	saveAdvert,
+	getAdverts,
 	// getAdvert
 };
+
+function getAdverts(objectId) {
+	const url = objectId ?
+		`${Config.apiUrl}/adverts?user=${objectId}` :
+		`${Config.apiUrl}/adverts`
+  const requestOptions = {
+		method: 'GET',
+		headers: { 'Content-Type': 'application/json' },
+		credentials: 'include'
+	};
+	return fetch(url, requestOptions)
+  .then(handleResponse)
+  .then(adverts => {
+		return adverts;
+  });
+}
 
 function saveAdvert(object, objectId) {
 	// Nuevo

@@ -11,6 +11,7 @@ import SHARED from '@utils/global-constants';
 
 // SERVICIOS
 import { authenticationService } from '@services/authentication-service';
+import { advertService } from '@services/advert-service';
 
 // COMPONENTES EXTERNOS
 import { Button, Container, Row, Col } from 'react-bootstrap';
@@ -22,6 +23,34 @@ import Common from '@components/main-container/Common';
 // COMPONENTE PRINCIPAL //
 //////////////////////////
 class Home extends Common {
+  /////////////////
+  // CONSTRUCTOR //
+  /////////////////
+  constructor(props) {
+    super(props);
+    this.state = {
+      apiError: null,
+      adverts: null
+    };
+  }
+
+  ///////////////
+  // CALLBACKS //
+  ///////////////
+  componentDidMount() {
+    advertService.getAdverts(this.getCurrentUser().id)
+    .then(
+      adverts => {
+        this.setState({
+          adverts: adverts
+        })
+      },
+      error => {
+        this.setState({apiError: error.message ? error.message : error })
+      }
+    );
+  }
+
   /////////////
   // EVENTOS //
   /////////////
@@ -45,6 +74,7 @@ class Home extends Common {
     if (currentUser){
       return (
         <div>
+          {this.getAllHelpers().renderError(this.state.apiError)}
           <h2>Mi Perfil</h2>
           <Container>
             <Row>
@@ -73,6 +103,9 @@ class Home extends Common {
               <Col>3 of 3</Col>
             </Row>
           </Container>
+          {this.state.adverts &&
+            this.getAllHelpers().renderAdvertsList(this.state.adverts)
+          }
         </div>
       );
     } else {

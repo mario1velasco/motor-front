@@ -13,10 +13,10 @@ import SHARED from '@utils/global-constants';
 import { commonHelper } from '@helpers/common';
 
 // SERVICIOS
-import { authenticationService } from '@services/authentication-service';
+import { advertService } from '@services/advert-service';
 
 // COMPONENTES EXTERNOS
-import { Button, Form } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 // COMPONENTES PROPIOS
 import Common from '@components/main-container/Common';
@@ -25,13 +25,14 @@ import Common from '@components/main-container/Common';
 // COMPONENTE PRINCIPAL //
 //////////////////////////
 class AdvertsIndex extends Common {
-    /////////////////
+  /////////////////
   // CONSTRUCTOR //
   /////////////////
   constructor(props) {
     super(props);
     this.state = {
-      apiError: null
+      apiError: null,
+      adverts: null
     };
   }
 
@@ -39,19 +40,19 @@ class AdvertsIndex extends Common {
   // CALLBACKS //
   ///////////////
   componentDidMount() {
+    advertService.getAdverts()
+    .then(
+      adverts => {
+        this.setState({
+          adverts: adverts
+        })
+      },
+      error => {
+        this.setState({apiError: error.message ? error.message : error })
+      }
+    );
     // Si es edición llamar API
     // if (this.props.advertId) {
-    //   advertService.getAdvert(this.props.advertId)
-    //   .then(
-    //     advert => {
-    //       this.setState({
-    //         advert: advert
-    //       })
-    //     },
-    //     error => {
-    //       this.setState({apiError: error.message ? error.message : error })
-    //     }
-    //   );
     // }
   }
 
@@ -62,9 +63,12 @@ class AdvertsIndex extends Common {
     const currentUser= this.getCurrentUser();
     return (
       <div>
+        {this.getAllHelpers().renderError(this.state.apiError)}
+        {this.getAllHelpers().renderBackButton()}
         <h2>Adverts INDEX</h2>
-        <h2>Adverts INDEX</h2>
-        <h2>Adverts INDEX</h2>
+        {this.state.adverts &&
+          this.getAllHelpers().renderAdvertsList(this.state.adverts)
+        }
         {currentUser &&
           <Button variant="primary"
             onClick={() =>this.props.history.push(`${SHARED.USERS_PATH}/${currentUser.id}/adverts/new`)}

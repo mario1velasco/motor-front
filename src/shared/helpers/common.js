@@ -12,7 +12,7 @@ import SHARED from '@utils/global-constants';
 import { historyHelper } from '@helpers/history';
 
 // COMPONENTES EXTERNOS
-import { Button, Alert, Nav } from 'react-bootstrap';
+import { Button, Alert, Nav, Table } from 'react-bootstrap';
 
 //////////////////////////
 // COMPONENTE PRINCIPAL //
@@ -74,6 +74,34 @@ export const commonHelper = function() {
             </Nav.Link>
           </p>
         </Alert>
+      );
+    },
+
+    renderAdvertsList: function(adverts, user) {
+      return (
+        <Table responsive>
+          <thead>
+            <tr>
+              <th>{SHARED.ADVERT_MODEL.FIELDS.TITLE}</th>
+              <th>{SHARED.ADVERT_MODEL.FIELDS.PRICE}</th>
+              <th>{SHARED.ADVERT_MODEL.FIELDS.CITY}</th>
+            </tr>
+          </thead>
+          <tbody>
+          { adverts.map(( advert, index ) => {
+            return (
+              <tr key={index}>
+                <td>{advert.title}</td>
+                <td>{advert.price}</td>
+                <td>{advert.city}</td>
+                { user &&
+                  <h3>editar</h3>
+                }
+              </tr>
+            );
+          })}
+          </tbody>
+        </Table>
       );
     },
   })

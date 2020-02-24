@@ -38,12 +38,12 @@ function logOut() {
 		// body: JSON.stringify(data)
 	};
 	return fetch(`${Config.apiUrl}/session/`, requestOptions)
-		.then(handleResponse)
 		.then(response => {
 			localStorage.removeItem('currentUser');
 			currentUserSubject.next(null);
 			return response;
-		});
+		})
+		.then(handleResponse)
 }
 
 function setUser(user) {
