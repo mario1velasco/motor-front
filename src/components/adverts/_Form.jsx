@@ -42,19 +42,19 @@ class AdvertsForm extends Common {
   ///////////////
   componentDidMount() {
     // Si es edición llamar API
-    // if (this.props.advertId) {
-    //   advertService.getAdvert(this.props.advertId)
-    //   .then(
-    //     advert => {
-    //       this.setState({
-    //         advert: advert
-    //       })
-    //     },
-    //     error => {
-    //       this.setState({apiError: error.message ? error.message : error })
-    //     }
-    //   );
-    // }
+    if (this.props.advertId) {
+      advertService.getAdvert(this.props.advertId)
+      .then(
+        advert => {
+          this.setState({
+            advert: advert
+          })
+        },
+        error => {
+          this.setState({apiError: error.message ? error.message : error })
+        }
+      );
+    }
   }
 
   onSubmitForm(values, { setSubmitting }) {

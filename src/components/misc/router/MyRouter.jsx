@@ -16,11 +16,13 @@ import Home from '@components/misc/home/Home'
 import LogIn from '@components/misc/log-in/LogIn'
 import SignUp from '@components/misc/sign-up/SignUp'
 import AdvertsIndex from '@components/adverts/Index'
-import AdvertsNew from '@components/adverts/New'
+import AdvertsShow from '@components/adverts/Show'
 import UsersIndex from '@components/users/Index'
 import UsersShow from '@components/users/Show'
-import UsersAdvertsNew from '@components/users/AdvertNew'
 import UsersEdit from '@components/users/Edit'
+import UsersAdvertsShow from '@components/users/AdvertShow'
+import UsersAdvertsNew from '@components/users/AdvertNew'
+import UsersAdvertsEdit from '@components/users/AdvertEdit'
 
 ////////////////
 // CONSTANTES //
@@ -47,15 +49,21 @@ class MyRouter extends Common {
   render() {
     return (
       <Switch>
-        {/* If the current URL is /home, this route is rendered
-            while the rest are ignored */}
+        {/* If the current URL is /home, this route is rendered while the rest are ignored */}
 
+        {/* ////////////// */}
         {/* RUTAS PÚBLICAS */}
+        {/* ////////////// */}
         <Route path={SHARED.LOGIN_PATH} component={LogIn} />
         <Route path={SHARED.SIGNUP_PATH} component={SignUp} />
+
+        {/* ADVERT */}
+        <Route path={`${SHARED.ADVERTS_PATH}/:advertId`} component={AdvertsShow} />
         <Route path={SHARED.ADVERTS_PATH} component={AdvertsIndex} />
 
+        {/* ////////////// */}
         {/* RUTAS PRIVADAS */}
+        {/* ////////////// */}
         <PrivateRoute
           path={SHARED.HOME_PATH}
           authenticated={this.isAuthenticated()}
@@ -68,6 +76,16 @@ class MyRouter extends Common {
           path={`${SHARED.USERS_PATH}/:userId/adverts/new`}
           authenticated={this.isAuthenticated()}
           component={UsersAdvertsNew}
+        />
+        <PrivateRoute
+          path={`${SHARED.USERS_PATH}/:userId/adverts/:advertId/edit`}
+          authenticated={this.isAuthenticated()}
+          component={UsersAdvertsEdit}
+        />
+        <PrivateRoute
+          path={`${SHARED.USERS_PATH}/:userId/adverts/:advertId`}
+          authenticated={this.isAuthenticated()}
+          component={UsersAdvertsShow}
         />
         <PrivateRoute
           path={`${SHARED.USERS_PATH}/:userId/edit`}

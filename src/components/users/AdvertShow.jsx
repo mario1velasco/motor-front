@@ -8,12 +8,12 @@ import { withRouter } from "react-router-dom";
 
 // COMPONENTES PROPIOS
 import NestedTemplate from '@components/users/NestedTemplate';
-import AdvertsForm from '@components/adverts/_Form';
+import AdvertsFields from '@components/adverts/_Fields';
 
 //////////////////////////
 // COMPONENTE PRINCIPAL //
 //////////////////////////
-class AdvertsNew extends NestedTemplate {
+class AdvertsShow extends NestedTemplate {
 
 
   /////////////
@@ -22,7 +22,11 @@ class AdvertsNew extends NestedTemplate {
   render(){
     if(this.state.user) {
       return(
-        <AdvertsForm user={this.state.user}></AdvertsForm>
+        <AdvertsFields
+          user={this.state.user}
+          advertId={this.props.match.params.advertId}
+        >
+        </AdvertsFields>
       );
     } else {
       return null;
@@ -33,4 +37,4 @@ class AdvertsNew extends NestedTemplate {
 ////////////
 // EXPORT //
 ////////////
-export default withRouter(AdvertsNew);
+export default withRouter(AdvertsShow);

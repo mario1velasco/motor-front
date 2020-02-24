@@ -19,7 +19,7 @@ class AdvertsEdit extends Common {
   /////////////
   render(){
     return(
-      <AdvertsForm userId={this.props.match.params.advertId}></AdvertsForm>
+      <AdvertsForm advertId={this.props.match.params.advertId}></AdvertsForm>
     );
   }
 }

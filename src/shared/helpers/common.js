@@ -77,33 +77,6 @@ export const commonHelper = function() {
       );
     },
 
-    renderAdvertsList: function(adverts, user) {
-      return (
-        <Table responsive>
-          <thead>
-            <tr>
-              <th>{SHARED.ADVERT_MODEL.FIELDS.TITLE}</th>
-              <th>{SHARED.ADVERT_MODEL.FIELDS.PRICE}</th>
-              <th>{SHARED.ADVERT_MODEL.FIELDS.CITY}</th>
-            </tr>
-          </thead>
-          <tbody>
-          { adverts.map(( advert, index ) => {
-            return (
-              <tr key={index}>
-                <td>{advert.title}</td>
-                <td>{advert.price}</td>
-                <td>{advert.city}</td>
-                { user &&
-                  <h3>editar</h3>
-                }
-              </tr>
-            );
-          })}
-          </tbody>
-        </Table>
-      );
-    },
   })
 }
 

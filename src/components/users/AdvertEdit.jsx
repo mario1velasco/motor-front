@@ -13,7 +13,7 @@ import AdvertsForm from '@components/adverts/_Form';
 //////////////////////////
 // COMPONENTE PRINCIPAL //
 //////////////////////////
-class AdvertsNew extends NestedTemplate {
+class UsersAdvertEdit extends NestedTemplate {
 
 
   /////////////
@@ -22,9 +22,14 @@ class AdvertsNew extends NestedTemplate {
   render(){
     if(this.state.user) {
       return(
-        <AdvertsForm user={this.state.user}></AdvertsForm>
+        <AdvertsForm
+          // user={this.state.user}
+          advertId={this.props.match.params.advertId}
+        >
+        </AdvertsForm>
       );
-    } else {
+    }
+    else {
       return null;
     }
   }
@@ -33,4 +38,4 @@ class AdvertsNew extends NestedTemplate {
 ////////////
 // EXPORT //
 ////////////
-export default withRouter(AdvertsNew);
+export default withRouter(UsersAdvertEdit);

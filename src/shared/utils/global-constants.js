@@ -46,6 +46,9 @@ module.exports = Object.freeze({
       CITY: 'Ciudad',
       PRICE: 'Precio',
     },
+    BUTTONS : {
+      EDIT: 'Editar',
+    },
   },
 
   ///////////
@@ -61,7 +64,15 @@ module.exports = Object.freeze({
         TELEPHONE_REQUIRED: 'Teléfono es obligatorio',
         USERNAME_REQUIRED: 'Nombre de usuario es obligatorio',
       }
-    }
+    },
+    INDEX: {
+      TITLE: 'Mi perfil',
+      ADVERTS_LIST: 'Mis anuncios',
+      BUTTONS: {
+        EDIT_PROFILE: 'Editar mi perfil',
+        LOG_OUT: 'Cerrar sesión'
+      },
+    },
   },
 
   // ADVERTS
@@ -74,6 +85,12 @@ module.exports = Object.freeze({
         DESCRIPTION_REQUIRED: 'Descripción es obligatorio',
         PRICE_REQUIRED: 'Precio es obligatorio',
       }
-    }
+    },
+    INDEX: {
+      TITLE: 'Todos los anuncios',
+      BUTTONS: {
+        NEW: 'Nuevo',
+      },
+    },
   }
 });

@@ -9,9 +9,6 @@ import { withRouter } from "react-router-dom";
 // CONSTANTES
 import SHARED from '@utils/global-constants';
 
-// HELPERS
-import { commonHelper } from '@helpers/common';
-
 // SERVICIOS
 import { advertService } from '@services/advert-service';
 
@@ -20,6 +17,7 @@ import { Button } from 'react-bootstrap';
 
 // COMPONENTES PROPIOS
 import Common from '@components/main-container/Common';
+import AdvertList from '@components/adverts/_List';
 
 //////////////////////////
 // COMPONENTE PRINCIPAL //
@@ -65,15 +63,17 @@ class AdvertsIndex extends Common {
       <div>
         {this.getAllHelpers().renderError(this.state.apiError)}
         {this.getAllHelpers().renderBackButton()}
-        <h2>Adverts INDEX</h2>
         {this.state.adverts &&
-          this.getAllHelpers().renderAdvertsList(this.state.adverts)
+          <div>
+            <h3>{SHARED.ADVERT_VIEWS.INDEX.TITLE}</h3>
+            <AdvertList adverts={this.state.adverts} ></AdvertList>
+          </div>
         }
         {currentUser &&
           <Button variant="primary"
             onClick={() =>this.props.history.push(`${SHARED.USERS_PATH}/${currentUser.id}/adverts/new`)}
           >
-            Nuevo
+            {SHARED.ADVERT_VIEWS.INDEX.BUTTONS.NEW}
           </Button>
         }
       </div>
