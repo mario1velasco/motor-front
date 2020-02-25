@@ -49,16 +49,4 @@ function getUser(objectId) {
   });
 }
 
-function getAdverts(objectId) {
-  const requestOptions = {
-		method: 'GET',
-		headers: { 'Content-Type': 'application/json' },
-		credentials: 'include'
-	};
-	return fetch(`${Config.apiUrl}/users/${objectId}/adverts`, requestOptions)
-  .then(handleResponse)
-  .then(adverts => {
-		return adverts;
-  });
-}
 

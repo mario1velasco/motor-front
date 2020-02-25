@@ -58,25 +58,13 @@ function getAdvert(objectId) {
 	const url = `${Config.apiUrl}/adverts/${objectId}`;
 	const requestOptions = {
 		method: 'GET',
-		headers: {
-			'Access-Control-Allow-Origin': 'http://localhost:8080',
-			'Access-Control-Allow-Credentials': true,
-			// 'Content-Type': 'application/json' ,
-			// 'Content-Type': 'text/html; charset=utf-8',
-			// 'X-Powered-By': 'Express',
-			// 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-			// 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
-			// 'X-Content-Type-Options': 'nosniff',
-			// 'Content-Length': '1800',
-			// 'Connection': 'keep-alive',
-			// 'Content-Security-Policy': 'default-src 'none'',
-		},
-		// credentials: 'include'
+		headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+		credentials: 'include'
 	};
 	return fetch(url, requestOptions)
 	.then(handleResponse)
-	.then(adverts => {
-		return adverts;
+	.then(advert => {
+		return advert;
 	})
 	.catch(function(reason) {
 		console.log(reason);
