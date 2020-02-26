@@ -49,7 +49,6 @@ class UsersShow extends React.Component {
         <div>
           <h1>SHOW</h1>
           <span><strong>Email:</strong> {currentUser.email}</span>
-          {commonHelper().renderBackButton()}
         </div>
       );
     } else {

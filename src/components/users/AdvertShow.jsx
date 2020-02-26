@@ -14,8 +14,6 @@ import AdvertsFields from '@components/adverts/_Fields';
 // COMPONENTE PRINCIPAL //
 //////////////////////////
 class AdvertsShow extends NestedTemplate {
-
-
   /////////////
   // RENDERS //
   /////////////

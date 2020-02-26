@@ -88,17 +88,17 @@ class Home extends Common {
       return (
         <Row>
           { this.state.user.username &&
-            <Col>
+            <Col xs={12} md={4}>
               <span><strong>{SHARED.USER_MODEL.FIELDS.USERNAME}:</strong> {this.state.user.username}</span>
             </Col>
           }
           { this.state.user.firstName &&
-            <Col>
+            <Col xs={12} md={4}>
               <span><strong>{SHARED.USER_MODEL.FIELDS.FIRST_NAME}:</strong> {this.state.user.firstName}</span>
             </Col>
           }
           { this.state.user.lastName &&
-            <Col>
+            <Col xs={12} md={4}>
               <span><strong>{SHARED.USER_MODEL.FIELDS.LAST_NAME}:</strong> {this.state.user.lastName}</span>
             </Col>
           }
@@ -112,30 +112,47 @@ class Home extends Common {
     if (currentUser){
       return (
         <div>
-          {this.getAllHelpers().renderError(this.state.apiError)}
-          <h2>{SHARED.USER_VIEWS.INDEX.TITLE}</h2>
-          <Container>
+          <div className='container'>
+            {this.getAllHelpers().renderError(this.state.apiError)}
+            <Row>
+              <Col xs={7} md={9}>
+                <h2>{SHARED.USER_VIEWS.INDEX.TITLE}</h2>
+              </Col>
+              <Col xs={5} md={3}>
+                <Button variant="outline-danger" onClick={() => this.onClickLogOut()}>{SHARED.BUTTONS.LOG_OUT}</Button>
+              </Col>
+            </Row>
+
             {this.renderUserDetails()}
             <Row>
-              <Col>
+              <Col xs={12} md={4}>
                 <span><strong>{SHARED.USER_MODEL.FIELDS.EMAIL}:</strong> {currentUser.email}</span>
               </Col>
-              <Col>
+              <Col xs={6} md={4}>
                 <Button
                   variant="primary"
                   onClick={() =>this.props.history.push(`${SHARED.USERS_PATH}/${currentUser.id}/edit`)}
                 >
-                  {SHARED.USER_VIEWS.INDEX.BUTTONS.EDIT_PROFILE}
+                  {SHARED.BUTTONS.EDIT_PROFILE}
                 </Button>
               </Col>
-              <Col>
-                <Button variant="danger" onClick={() => this.onClickLogOut()}>{SHARED.USER_VIEWS.INDEX.BUTTONS.LOG_OUT}</Button>
-              </Col>
+
             </Row>
-          </Container>
+          </div>
           {this.state.adverts &&
-            <div>
-              <h3>{SHARED.USER_VIEWS.INDEX.ADVERTS_LIST}</h3>
+            <div className='container'>
+              <Row>
+                <Col xs={8} md={10}>
+                  <h3>{SHARED.USER_VIEWS.INDEX.ADVERTS_LIST}</h3>
+                </Col>
+                <Col xs={4} md={2}>
+                  <Button variant="link"
+                    onClick={() =>this.props.history.push(`${SHARED.USERS_PATH}/${currentUser.id}/adverts/new`)}
+                  >
+                    {SHARED.BUTTONS.NEW}
+                  </Button>
+                </Col>
+              </Row>
               <AdvertList adverts={this.state.adverts} user={currentUser}></AdvertList>
             </div>
           }

@@ -23,7 +23,7 @@ class UsersAdvertEdit extends NestedTemplate {
     if(this.state.user) {
       return(
         <AdvertsForm
-          // user={this.state.user}
+          user={this.state.user}
           advertId={this.props.match.params.advertId}
         >
         </AdvertsForm>

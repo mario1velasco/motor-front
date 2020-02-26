@@ -37,6 +37,14 @@ class AdvertsForm extends Common {
     };
   }
 
+  handleChange(event) {
+    event.preventDefault();
+    let fieldName = event.target.name;
+    let fleldVal = event.target.value;
+    debugger
+    this.form[fieldName].value = fleldVal
+  }
+
   ///////////////
   // CALLBACKS //
   ///////////////
@@ -62,7 +70,9 @@ class AdvertsForm extends Common {
     .then(
       advert => {
         setSubmitting(false);
-        this.props.history.push(SHARED.ADVERTS_PATH);
+        this.props.user ?
+          this.props.history.push(SHARED.HOME_PATH) :
+          this.props.history.push(SHARED.ADVERTS_PATH);
       },
       error => {
         setSubmitting(false);
@@ -81,10 +91,11 @@ class AdvertsForm extends Common {
         <div>
           {this.getAllHelpers().renderError(this.state.apiError)}
           {this.getAllHelpers().renderBackButton()}
-          <div>
+          <div  className='container'>
             <h2>{SHARED.ADVERT_VIEWS.FORM.TITLE}</h2>
             <Formik
               validationSchema={schema}
+              enableReinitialize= {true}
               onSubmit={(values, { setSubmitting }) => {
                 this.onSubmitForm(values, { setSubmitting })
               }}
@@ -117,6 +128,7 @@ class AdvertsForm extends Common {
                         name="title"
                         value={values.title}
                         placeholder={SHARED.ADVERT_MODEL.FIELDS.TITLE}
+                        // onChange={this.handleChange.bind(this)}
                         onChange={handleChange}
                         isValid={touched.title && !errors.title}
                         isInvalid={!!errors.title}
@@ -133,6 +145,7 @@ class AdvertsForm extends Common {
                         name="description"
                         value={values.description}
                         placeholder={SHARED.ADVERT_MODEL.FIELDS.DESCRIPTION}
+                        // onChange={this.handleChange.bind(this)}
                         onChange={handleChange}
                         isValid={touched.description && !errors.description}
                         isInvalid={!!errors.description}
@@ -152,6 +165,7 @@ class AdvertsForm extends Common {
                         name="price"
                         value={values.price}
                         placeholder={SHARED.ADVERT_MODEL.FIELDS.PRICE}
+                        // onChange={this.handleChange.bind(this)}
                         onChange={handleChange}
                         isValid={touched.price && !errors.price}
                         isInvalid={!!errors.price}
@@ -168,6 +182,7 @@ class AdvertsForm extends Common {
                         name="city"
                         value={values.city}
                         placeholder={SHARED.ADVERT_MODEL.FIELDS.CITY}
+                        // onChange={this.handleChange.bind(this)}
                         onChange={handleChange}
                         isValid={touched.city && !errors.city}
                         isInvalid={!!errors.city}
@@ -178,7 +193,10 @@ class AdvertsForm extends Common {
                       </Form.Control.Feedback>
                     </Form.Group>
                   </Form.Row>
-                  <Button type="submit" disabled={isSubmitting}>Actualizar</Button>
+                  {this.props.advertId ?
+                    <Button type="submit" disabled={isSubmitting}>{SHARED.BUTTONS.UPDATE}</Button> :
+                    <Button type="submit" disabled={isSubmitting}>{SHARED.BUTTONS.SAVE}</Button>
+                  }
                 </Form>
               )}
             </Formik>

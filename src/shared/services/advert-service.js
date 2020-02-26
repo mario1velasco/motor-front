@@ -5,6 +5,7 @@ export const advertService = {
 	saveAdvert,
 	getAdverts,
 	getAdvert,
+	deleteAdvert,
 };
 
 function getAdverts(objectId) {
@@ -38,20 +39,19 @@ function saveAdvert(object, objectId) {
 			return advert;
 		});
 	// Actualizar
+	}	else {
+		const requestOptions = {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			credentials: 'include',
+			body: JSON.stringify(object)
+		};
+		return fetch(`${Config.apiUrl}/adverts/${objectId}`, requestOptions)
+		.then(handleResponse)
+		.then(advert => {
+			return advert;
+		});
 	}
-	// else {
-	// 	const requestOptions = {
-	// 		method: 'PUT',
-	// 		headers: { 'Content-Type': 'application/json' },
-	// 		credentials: 'include',
-	// 		body: JSON.stringify(object)
-	// 	};
-	// 	return fetch(`${Config.apiUrl}/adverts/${objectId}`, requestOptions)
-	// 	.then(handleResponse)
-	// 	.then(advert => {
-	// 		return advert;
-	// 	});
-	// }
 }
 
 function getAdvert(objectId) {
@@ -68,5 +68,22 @@ function getAdvert(objectId) {
 	})
 	.catch(function(reason) {
 		console.log(reason);
- });
+ 	});
+}
+
+function deleteAdvert(objectId) {
+	const url = `${Config.apiUrl}/adverts/${objectId}`;
+	const requestOptions = {
+		method: 'DELETE',
+		headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+		credentials: 'include'
+	};
+	return fetch(url, requestOptions)
+	.then(handleResponse)
+	.then(advert => {
+		return advert;
+	})
+	.catch(function(reason) {
+		console.log(reason);
+ 	});
 }

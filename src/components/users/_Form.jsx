@@ -80,7 +80,7 @@ class UsersForm extends Common {
         <div>
           {this.getAllHelpers().renderError(this.state.apiError)}
           {this.getAllHelpers().renderBackButton()}
-          <div>
+          <div className='container'>
             <h2>{SHARED.USER_VIEWS.FORM.TITLE}</h2>
             <Formik
               validationSchema={schema}
@@ -177,7 +177,7 @@ class UsersForm extends Common {
                       <Form.Control.Feedback>{SHARED.USER_VIEWS.FORM.FIELD_OK}</Form.Control.Feedback>
                     </Form.Group>
                   </Form.Row>
-                  <Button type="submit" disabled={isSubmitting}>Actualizar</Button>
+                  <Button type="submit" disabled={isSubmitting}>{SHARED.BUTTONS.UPDATE}</Button>
                 </Form>
               )}
             </Formik>

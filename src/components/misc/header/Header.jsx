@@ -13,7 +13,7 @@ import SHARED from '@utils/global-constants';
 import { authenticationService } from '@services/authentication-service';
 
 // PUBLICO
-import logo from '@public/img/mc-logo.jpg';
+import logo from '@public/img/mc-logo.png';
 
 // COMPONENTES EXTERNOS
 import { Navbar, Nav } from 'react-bootstrap';
@@ -46,7 +46,7 @@ class Header extends Common {
   render() {
     const currentUser= this.getCurrentUser();
     return (
-      <Navbar fixed="top" bg="light" expand="lg">
+      <Navbar collapseOnSelect fixed="top" bg="light" expand="lg">
         <Navbar.Brand onClick={() =>this.props.history.push(SHARED.ROOT_PATH)}>
           <img
             src={logo}
@@ -55,26 +55,26 @@ class Header extends Common {
             className="d-inline-block align-top"
             alt="logo"
           />
-          Menéame el coche
+          enéame el coche
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link onClick={() =>this.props.history.push(SHARED.ADVERTS_PATH)}>
+            <Nav.Link eventKey="1" onClick={() =>this.props.history.push(SHARED.ADVERTS_PATH)}>
               Anuncios
             </Nav.Link>
             { !currentUser &&
-              <Nav.Link onClick={() =>this.props.history.push(SHARED.LOGIN_PATH)}>
+              <Nav.Link eventKey="2" onClick={() =>this.props.history.push(SHARED.LOGIN_PATH)}>
                 Inicar sesión
               </Nav.Link>
             }
             { currentUser &&
-              <Nav.Link onClick={() =>this.props.history.push(SHARED.HOME_PATH)}>
+              <Nav.Link eventKey="3" onClick={() =>this.props.history.push(SHARED.HOME_PATH)}>
                 Inicio
               </Nav.Link>
             }
             { currentUser &&
-              <Nav.Link onClick={() => this.onClickLogOut()}>Salir</Nav.Link>
+              <Nav.Link eventKey="4" onClick={() => this.onClickLogOut()}>Salir</Nav.Link>
             }
           </Nav>
         </Navbar.Collapse>

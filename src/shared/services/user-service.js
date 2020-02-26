@@ -3,7 +3,8 @@ import { handleResponse } from '@helpers/handle-response';
 
 export const userService = {
 	saveUser,
-	getUser
+	getUser,
+	getUserByObjectId
 };
 
 function saveUser(object, objectId) {
@@ -43,6 +44,19 @@ function getUser(objectId) {
 		credentials: 'include'
 	};
 	return fetch(`${Config.apiUrl}/users/${objectId}`, requestOptions)
+  .then(handleResponse)
+  .then(user => {
+		return user;
+  });
+}
+
+function getUserByObjectId(objectId) {
+  const requestOptions = {
+		method: 'GET',
+		headers: { 'Content-Type': 'application/json' },
+		credentials: 'include'
+	};
+	return fetch(`${Config.apiUrl}/users/${objectId}/object`, requestOptions)
   .then(handleResponse)
   .then(user => {
 		return user;

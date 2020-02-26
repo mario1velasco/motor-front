@@ -56,7 +56,7 @@ class AdvertsList extends Common {
                       variant="success"
                       onClick={() => this.props.history.push(`${SHARED.USERS_PATH}/${this.props.user.id}/adverts/${advert.id}/edit`)}
                     >
-                      {`${SHARED.ADVERT_MODEL.BUTTONS.EDIT}`}
+                      {`${SHARED.BUTTONS.EDIT}`}
                     </Button>
                   </td>
                 }

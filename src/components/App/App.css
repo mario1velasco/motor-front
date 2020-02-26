@@ -8,8 +8,10 @@ body {
 }
 .about {
   text-align: center;
-  padding: "10px";
   font-family: "Amaranth";
+  padding: 20px;
+  margin: 10px;
+  border-radius: 15px;
 }
 
 .text-error {
@@ -25,4 +27,16 @@ body {
 .center-text {
   text-align: center;
   padding: "30px";
+}
+
+.container {
+  background-color: #F8F9FA;
+  padding: 20px;
+  margin: 20px 0px;
+  border-radius: 15px;
+  max-width: 100%;
+}
+
+.row {
+  margin-bottom: 10px;
 }

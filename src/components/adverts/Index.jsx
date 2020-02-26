@@ -13,7 +13,7 @@ import SHARED from '@utils/global-constants';
 import { advertService } from '@services/advert-service';
 
 // COMPONENTES EXTERNOS
-import { Button } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 
 // COMPONENTES PROPIOS
 import Common from '@components/main-container/Common';
@@ -49,32 +49,40 @@ class AdvertsIndex extends Common {
         this.setState({apiError: error.message ? error.message : error })
       }
     );
-    // Si es edición llamar API
-    // if (this.props.advertId) {
-    // }
   }
 
   /////////////
   // RENDERS //
   /////////////
-  render(){
+  renderNewButton(currentUser) {
+    if (currentUser) {
+      return (
+        <Button variant="link"
+          onClick={() =>this.props.history.push(`${SHARED.USERS_PATH}/${currentUser.id}/adverts/new`)}
+        >
+          {SHARED.BUTTONS.NEW}
+        </Button>
+      );
+    }
+  }
+  render() {
     const currentUser= this.getCurrentUser();
     return (
       <div>
         {this.getAllHelpers().renderError(this.state.apiError)}
         {this.getAllHelpers().renderBackButton()}
         {this.state.adverts &&
-          <div>
-            <h3>{SHARED.ADVERT_VIEWS.INDEX.TITLE}</h3>
-            <AdvertList adverts={this.state.adverts} ></AdvertList>
+          <div className='container'>
+            <Row>
+              <Col xs={9} md={9}>
+                <h2>{SHARED.ADVERT_VIEWS.INDEX.TITLE}</h2>
+              </Col>
+              {this.renderNewButton(currentUser)}
+            </Row>
+            <AdvertList
+              adverts={this.state.adverts}
+            ></AdvertList>
           </div>
-        }
-        {currentUser &&
-          <Button variant="primary"
-            onClick={() =>this.props.history.push(`${SHARED.USERS_PATH}/${currentUser.id}/adverts/new`)}
-          >
-            {SHARED.ADVERT_VIEWS.INDEX.BUTTONS.NEW}
-          </Button>
         }
       </div>
     );

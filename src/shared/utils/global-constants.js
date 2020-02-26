@@ -46,9 +46,6 @@ module.exports = Object.freeze({
       CITY: 'Ciudad',
       PRICE: 'Precio',
     },
-    BUTTONS : {
-      EDIT: 'Editar',
-    },
   },
 
   ///////////
@@ -78,7 +75,7 @@ module.exports = Object.freeze({
   // ADVERTS
   ADVERT_VIEWS: {
     FORM: {
-      TITLE: 'Creación de un nuevo anuncio',
+      TITLE: 'Mi anuncio',
       FIELD_OK: 'Parece correcto!',
       ERRORS: {
         TITLE_REQUIRED: 'Resumen es obligatorio',
@@ -88,9 +85,25 @@ module.exports = Object.freeze({
     },
     INDEX: {
       TITLE: 'Todos los anuncios',
-      BUTTONS: {
-        NEW: 'Nuevo',
-      },
     },
-  }
+    SHOW: {
+      TITLE: 'Anuncio',
+    },
+  },
+
+  ///////////
+  // VIEWS //
+  ///////////
+
+  // COMUNES
+  BUTTONS : {
+    EDIT: 'Editar',
+    NEW: 'Nuevo',
+    DELETE: 'Eliminar',
+    SAVE: 'Guardar',
+    UPDATE: 'Actualizar',
+    LOG_OUT: 'Cerrar sesión',
+    EDIT_PROFILE: 'Editar perfil',
+    CONTACT: 'Contactar con el anunciante',
+  },
 });
