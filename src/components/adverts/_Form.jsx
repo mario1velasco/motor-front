@@ -37,14 +37,6 @@ class AdvertsForm extends Common {
     };
   }
 
-  handleChange(event) {
-    event.preventDefault();
-    let fieldName = event.target.name;
-    let fleldVal = event.target.value;
-    debugger
-    this.form[fieldName].value = fleldVal
-  }
-
   ///////////////
   // CALLBACKS //
   ///////////////
@@ -128,7 +120,6 @@ class AdvertsForm extends Common {
                         name="title"
                         value={values.title}
                         placeholder={SHARED.ADVERT_MODEL.FIELDS.TITLE}
-                        // onChange={this.handleChange.bind(this)}
                         onChange={handleChange}
                         isValid={touched.title && !errors.title}
                         isInvalid={!!errors.title}
@@ -145,7 +136,6 @@ class AdvertsForm extends Common {
                         name="description"
                         value={values.description}
                         placeholder={SHARED.ADVERT_MODEL.FIELDS.DESCRIPTION}
-                        // onChange={this.handleChange.bind(this)}
                         onChange={handleChange}
                         isValid={touched.description && !errors.description}
                         isInvalid={!!errors.description}
@@ -165,7 +155,6 @@ class AdvertsForm extends Common {
                         name="price"
                         value={values.price}
                         placeholder={SHARED.ADVERT_MODEL.FIELDS.PRICE}
-                        // onChange={this.handleChange.bind(this)}
                         onChange={handleChange}
                         isValid={touched.price && !errors.price}
                         isInvalid={!!errors.price}
@@ -182,7 +171,6 @@ class AdvertsForm extends Common {
                         name="city"
                         value={values.city}
                         placeholder={SHARED.ADVERT_MODEL.FIELDS.CITY}
-                        // onChange={this.handleChange.bind(this)}
                         onChange={handleChange}
                         isValid={touched.city && !errors.city}
                         isInvalid={!!errors.city}

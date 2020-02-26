@@ -5,15 +5,9 @@
 // BÁSICO
 import React from 'react';
 
-// COMPONENTES EXTERNOS
-import { Table, Nav, Button } from 'react-bootstrap';
-
 // COMPONENTES PROPIOS
 import AdvertsFields from './_Fields';
 import Common from '@components/main-container/Common';
-
-// CONSTANTES
-import SHARED from '@utils/global-constants';
 
 
 class AdvertsShow extends Common {
